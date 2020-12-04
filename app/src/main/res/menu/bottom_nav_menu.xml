@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_profil"
+        android:icon="@drawable/user"
+        android:title="@string/string_profil" />
+    <item
+        android:id="@+id/navigation_ranking"
+        android:icon="@drawable/ranking"
+        android:title="@string/string_ranking" />
+    <item
+        android:id="@+id/navigation_challenges"
+        android:icon="@drawable/challenges"
+        android:title="@string/string_challenges" />
+</menu>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidTests</string>
+    <string name="welcome_title">Bienvenue !</string>
+    <string name="signIn_title">Connexion</string>
+    <string name="password_title">mot de passe</string>
+    <string name="register_title">Inscription</string>
+    <string name="profile_menu_title">Profile</string>
+    <string name="http_no_connection">pas de données : vérifiez votre connexion</string>
+    <string name="request_error">une erreur est apparue lors de la requête</string>
+    <string name="technical_error">erreur inconnue : réessayez</string>
+    <string name="string_profil">profile</string>
+    <string name="string_ranking">classement</string>
+    <string name="string_challenges">défis</string>
+    <string name="settings">paramètres</string>
+    <string name="completed_challenges">défis terminés</string>
+    <string name="current_challenges">défis en cours</string>
+</resources>

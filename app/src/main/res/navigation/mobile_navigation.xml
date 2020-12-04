@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation.xml"
+    app:startDestination="@id/navigation_profil">
+
+    <fragment
+        android:id="@+id/navigation_profil"
+        android:name="com.example.androidtests.ui.profile.ProfileFragment"
+        android:label="@string/string_profil"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_ranking"
+        android:name="com.example.androidtests.ui.ranking.Ranking"
+        android:label="@string/string_ranking"
+        tools:layout="@layout/fragment_ranking" />
+    <fragment
+        android:id="@+id/navigation_challenges"
+        android:name="com.example.androidtests.ui.challenges.Challenges"
+        android:label="@string/string_challenges"
+        tools:layout="@layout/fragment_challenges" />
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.androidtests.ui.settings.Settings"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">AndroidTests</string>
+    <string name="welcome_title">Welcome !</string>
+    <string name="signIn_title">Sign in</string>
+    <string name="email_title" translatable="false">Email</string>
+    <string name="password_title">password</string>
+    <string name="register_title">Register</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="profile_menu_title">Profile</string>
+    <string name="http_no_connection">no data : check your connection</string>
+    <string name="request_error">An error occured during your request</string>
+    <string name="technical_error">An unknow error happened : Try again</string>
+    <string name="string_profil">profil</string>
+    <string name="string_ranking">ranking</string>
+    <string name="string_challenges">challenges</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="settings">settings</string>
+    <string name="completed_challenges">completed challenges</string>
+    <string name="current_challenges">current challenges</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
