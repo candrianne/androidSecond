@@ -7,11 +7,13 @@ public class UserChallenge {
     private Date startdate;
     private Date enddate;
     private String name;
+    private Integer score;
 
-    public UserChallenge(Date startdate, Date enddate, String name) {
+    public UserChallenge(Date startdate, Date enddate, String name, Integer score) {
         this.startdate = startdate;
         this.enddate = enddate;
         this.name = name;
+        this.score = score;
     }
 
     public Date getstartdate() {
@@ -36,5 +38,13 @@ public class UserChallenge {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

@@ -5,13 +5,14 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
     String firstName,lastName,email;
-    Integer id;
+    Integer id, score;
 
     public User(String firstName, String lastName, String email, Integer id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.id = id;
+        this.score = null;
     }
 
     protected User(Parcel in) {
@@ -23,6 +24,7 @@ public class User implements Parcelable {
         } else {
             id = in.readInt();
         }
+        score = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -53,6 +55,14 @@ public class User implements Parcelable {
         return lastName;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -64,5 +74,6 @@ public class User implements Parcelable {
         dest.writeString(lastName);
         dest.writeString(email);
         dest.writeInt(id);
+        dest.writeInt(score);
     }
 }
