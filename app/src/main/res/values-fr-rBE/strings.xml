@@ -15,4 +15,9 @@
     <string name="settings">paramètres</string>
     <string name="completed_challenges">défis terminés</string>
     <string name="current_challenges">défis en cours</string>
+    <string name="language" >Langue</string>
+    <string-array name="languages">
+        <item>Anglais</item>
+        <item>Français</item>
+    </string-array>
 </resources>
