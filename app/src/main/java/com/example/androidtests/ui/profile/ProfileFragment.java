@@ -1,30 +1,42 @@
 package com.example.androidtests.ui.profile;
 
-import android.content.Context;
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
 import com.example.androidtests.R;
 import com.example.androidtests.models.NetworkError;
 import com.example.androidtests.models.User;
@@ -33,18 +45,27 @@ import com.example.androidtests.models.UserChallenge;
 import com.example.androidtests.utils.Profile;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.UserChallengesViewModel;
+import com.example.androidtests.viewModels.UserViewModel;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import static java.time.temporal.ChronoUnit.DAYS;
+import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment {
+    private static final int PICK_PHOTO_FOR_AVATAR = 8;
     private FragmentProfileBinding binding;
     RecyclerView completedChallengesRecycler, challengesRecycler;
     Button showCompletedChallengesButton, showChallengesButton;
-    private UserChallengesViewModel viewModel;
+    private UserChallengesViewModel userChallengesViewModel;
+    private UserViewModel userViewModel;
+    private static final int PERMISSION_CODE =1;
+    private static final int PICK_IMAGE=1;
+    User connectedUser;
+    String filePath;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +75,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(UserChallengesViewModel.class);
+        userChallengesViewModel = new ViewModelProvider(this).get(UserChallengesViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         completedChallengesRecycler = binding.completedChallengesRecyclerView;
@@ -75,21 +97,21 @@ public class ProfileFragment extends Fragment {
         showChallengesButton = binding.challengesButton;
         showCompletedChallengesButton = binding.completedChallengesButton;
 
-        User user = SaveSharedPreference.getLogedInUser(getContext());
-        binding.profileNameTextView.setText(user.getFirstName());
+        connectedUser = SaveSharedPreference.getLogedInUser(getContext());
+        binding.profileNameTextView.setText(connectedUser.getFirstName());
 
         showChallengesButton.setOnClickListener(this::displayChallenges);
         showCompletedChallengesButton.setOnClickListener(this::displayCompletedChallenges);
 
         displayChallenges(binding.getRoot());
 
-        viewModel.getUserChallenges().observe(getViewLifecycleOwner(), challenges -> {
+        userChallengesViewModel.getUserChallenges().observe(getViewLifecycleOwner(), challenges -> {
             binding.challengeProgressBar.setVisibility(View.GONE);
             binding.errorImageView.setVisibility(View.GONE);
             binding.visibleLayout.setVisibility(View.VISIBLE);
-            user.setScore(Profile.calculateUserScore(challenges));
-            binding.nbPointsTextView.setText(user.getScore() + " POINTS");
-            loadProfilePicture(user);
+            connectedUser.setScore(Profile.calculateUserScore(challenges));
+            binding.nbPointsTextView.setText(connectedUser.getScore() + " POINTS");
+            loadProfilePicture(connectedUser);
             adapter.setChallenges(challenges.stream()
                     .filter(challenge -> challenge.getenddate() == null)
                     .collect(Collectors.toList()));
@@ -98,15 +120,127 @@ public class ProfileFragment extends Fragment {
                     .collect(Collectors.toList()));
         });
 
-        viewModel.getError().observe(getViewLifecycleOwner(), this::displayErrorScreen);
+        binding.profileImageView.setOnClickListener(v -> getProfilePicture());
 
-        sendRequest(user.getId());
+        userChallengesViewModel.getError().observe(getViewLifecycleOwner(), this::displayErrorScreen);
+
+        sendRequest(connectedUser.getId());
 
         return binding.getRoot();
     }
 
+    private void getProfilePicture() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle(R.string.upload_profil_picture);
+        builder.setMessage(R.string.upload_profil_picture_message);
+        builder.setPositiveButton(R.string.yes, (dialog, which) -> {
+            requestPermission();
+        });
+        builder.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+
+
+    private void requestPermission(){
+        if(ContextCompat.checkSelfPermission
+                (getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+        ){
+            accessTheGallery();
+        } else {
+            ActivityCompat.requestPermissions(
+                    getActivity(),
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    PERMISSION_CODE
+            );
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode== PERMISSION_CODE){
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                accessTheGallery();
+            }else {
+                Toast.makeText(getContext(), "permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void accessTheGallery(){
+        Intent i = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        );
+        i.setType("image/*");
+        startActivityForResult(i, PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //get the image's file location
+        filePath = getRealPathFromUri(data.getData(), getActivity());
+
+        if(requestCode==PICK_IMAGE && resultCode==RESULT_OK){
+            uploadToCloudinary(filePath);
+            //set picked image to the mProfile
+                /*Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                binding.profileImageView.setImageBitmap(bitmap);*/
+        }
+    }
+
+    private String getRealPathFromUri(Uri imageUri, Activity activity){
+        Cursor cursor = activity.getContentResolver().query(imageUri, null, null, null, null);
+
+        if(cursor==null) {
+            return imageUri.getPath();
+        }else{
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(idx);
+        }
+    }
+
+    private void uploadToCloudinary(String filePath) {
+        Log.d("A", "sign up uploadToCloudinary- ");
+        MediaManager.get().upload(filePath).callback(new UploadCallback() {
+            @Override
+            public void onStart(String requestId) {
+                binding.uploadStatusTextView.setText("start");
+            }
+
+            @Override
+            public void onProgress(String requestId, long bytes, long totalBytes) {
+                binding.uploadStatusTextView.setText("Uploading... ");
+            }
+
+            @Override
+            public void onSuccess(String requestId, Map resultData) {
+                String httpsUrl = resultData.get("url").toString().split(":")[0] + "s:" +
+                        resultData.get("url").toString().split(":")[1];
+                connectedUser.setPhoto(httpsUrl);
+                userViewModel.updateUser(connectedUser);
+                loadProfilePicture(connectedUser);
+            }
+
+            @Override
+            public void onError(String requestId, ErrorInfo error) {
+                binding.uploadStatusTextView.setText("error "+ error.getDescription());
+            }
+
+            @Override
+            public void onReschedule(String requestId, ErrorInfo error) {
+                binding.uploadStatusTextView.setText("Reshedule "+error.getDescription());
+            }
+        }).dispatch();
+    }
+
     private void sendRequest(int id) {
-        viewModel.sendRequest(id);
+        userChallengesViewModel.sendRequest(id);
         binding.visibleLayout.setVisibility(View.GONE);
         binding.errorImageView.setVisibility(View.GONE);
         binding.challengeProgressBar.setVisibility(View.VISIBLE);
@@ -152,20 +286,19 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loadProfilePicture(User user) {
-        String firstName = user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1);
-        String lastName = user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1);
-        String url = "https://res.cloudinary.com/dq4qdktus/image/upload/v1606763072/ecoChallenge/"
-                + lastName + firstName + ".png";
+        String url = user.getPhoto();
         binding.profileImageView.setBackgroundResource(getUserRankingDrawableId(user.getScore()));
 
-        Glide.with(this).asBitmap().load(url).into(new BitmapImageViewTarget(binding.profileImageView){
-            @Override
-            protected void setResource(Bitmap resource) {
-                RoundedBitmapDrawable circular = RoundedBitmapDrawableFactory.create(getActivity().getApplicationContext().getResources(),resource);
-                circular.setCircular(true);
-                binding.profileImageView.setImageDrawable(circular);
-            }
-        });
+        if(url != null) {
+            Glide.with(this).asBitmap().centerCrop().load(url).into(new BitmapImageViewTarget(binding.profileImageView){
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circular = RoundedBitmapDrawableFactory.create(getActivity().getApplicationContext().getResources(),resource);
+                    circular.setCircular(true);
+                    binding.profileImageView.setImageDrawable(circular);
+                }
+            });
+        }
     }
 
     private int getUserRankingDrawableId(int points) {

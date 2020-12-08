@@ -20,4 +20,16 @@
         <item>Anglais</item>
         <item>Français</item>
     </string-array>
+    <string-array name="languagesInverted">
+        <item>Français</item>
+        <item>Anglais</item>
+    </string-array>
+    <string name="Logout">déconnexion</string>
+    <string name="logoutMessage">Voulez vous vraiment vous déconnecter ?</string>
+    <string name="yes">oui</string>
+    <string name="no">non</string>
+    <string name="upload_profil_picture">uploader une photo de profile</string>
+    <string name="upload_profil_picture_message">changer votre photo actuelle ?</string>
+    <string name="update_success">utilisateur mis à jour</string>
+    <string name="update_fail">mis à jour ratée</string>
 </resources>

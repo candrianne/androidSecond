@@ -24,15 +24,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/languagesTextView"
         android:layout_width="141dp"
         android:layout_height="27dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="72dp"
-        android:layout_marginBottom="490dp"
         android:text="@string/language"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sLanguages"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -43,10 +41,8 @@
         android:layout_height="27dp"
         android:layout_marginTop="72dp"
         android:layout_marginEnd="45dp"
-        android:layout_marginBottom="490dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toEndOf="@+id/languagesTextView"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

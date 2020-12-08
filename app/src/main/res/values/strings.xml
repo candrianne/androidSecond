@@ -23,5 +23,17 @@
         <item>English</item>
         <item>French</item>
     </string-array>
+    <string-array name="languagesInverted">
+        <item>French</item>
+        <item>English</item>
+    </string-array>
+    <string name="Logout">Logout</string>
+    <string name="logoutMessage">Are you sure you want to logout ?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="upload_profil_picture">upload profil picture</string>
+    <string name="upload_profil_picture_message">change you actual photo ?</string>
+    <string name="update_success">user updated !</string>
+    <string name="update_fail">update has failed</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

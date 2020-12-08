@@ -74,4 +74,5 @@ dependencies {
         exclude group: 'org.json', module: 'json' //provided by Android natively
     }
 
+    implementation group: 'com.cloudinary', name: 'cloudinary-android', version: '1.28.2'
 }

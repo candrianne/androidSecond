@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import com.example.androidtests.models.User;
 import com.google.gson.Gson;
 
+import java.util.Locale;
+
 import static com.example.androidtests.utils.sharedPreferences.PreferencesUtility.LOGGED_IN_PREF;
 
 public class SaveSharedPreference {
@@ -14,17 +16,11 @@ public class SaveSharedPreference {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    /**
-     * Set the Login Status
-     * @param context
-     * @param loggedIn
-     */
     public static void setLoggedIn(Context context, boolean loggedIn) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putBoolean(LOGGED_IN_PREF, loggedIn);
-        editor.apply();
+        editor.commit();
     }
-
 
     public static void setLogedInUser(Context context, User user) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
@@ -34,18 +30,23 @@ public class SaveSharedPreference {
         editor.commit();
     }
 
-
     public static User getLogedInUser(Context context) {
         Gson gson = new Gson();
         String json = getPreferences(context).getString("current_user","");
         return gson.fromJson(json, User.class);
     }
-    /**
-     * Get the Login Status
-     * @param context
-     * @return boolean: login status
-     */
+
     public static boolean getLoggedStatus(Context context) {
         return getPreferences(context).getBoolean(LOGGED_IN_PREF, false);
+    }
+
+    public static String getLocale(Context context) {
+        return getPreferences(context).getString("locale", "en");
+    }
+
+    public static void setLocale(Context context, String localeChoice) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.putString("locale", localeChoice);
+        editor.commit();
     }
 }

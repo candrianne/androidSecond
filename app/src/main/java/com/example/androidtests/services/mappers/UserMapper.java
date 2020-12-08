@@ -28,10 +28,12 @@ public class UserMapper {
         }
 
         JSONObject decodedPayload = decodeTokenParts(dto.getJwt());
-        return new User(decodedPayload.getJSONObject("value").getString("firstname"),
+        return new User(dto.getJwt(),
+                decodedPayload.getJSONObject("value").getString("firstname"),
                 decodedPayload.getJSONObject("value").getString("lastname"),
                 decodedPayload.getJSONObject("value").getString("email"),
-                decodedPayload.getJSONObject("value").getInt("id"));
+                decodedPayload.getJSONObject("value").getInt("id"),
+                decodedPayload.getJSONObject("value").getString("photo"));
     }
 
     /*public String getTokenProperty(String token, String propertyName) throws JSONException {

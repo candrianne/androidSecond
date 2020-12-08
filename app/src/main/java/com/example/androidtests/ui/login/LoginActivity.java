@@ -19,8 +19,11 @@ import com.example.androidtests.R;
 import com.example.androidtests.databinding.LoginBinding;
 import com.example.androidtests.models.UserLoginRequest;
 import com.example.androidtests.ui.MainActivity;
+import com.example.androidtests.utils.ContextWrapper;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.LoginViewModel;
+
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity {
     private LoginBinding binding;
@@ -68,5 +71,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void sendRequest(UserLoginRequest infos) {
         viewModel.login(infos);
+    }
+
+    protected void attachBaseContext(Context newBase) {
+        String locale = SaveSharedPreference.getLocale(newBase);
+
+        Context context = ContextWrapper.wrap(newBase, new Locale(locale));
+        super.attachBaseContext(context);
     }
 }
