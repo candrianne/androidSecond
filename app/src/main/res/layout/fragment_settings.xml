@@ -16,7 +16,7 @@
         android:layout_marginBottom="591dp"
         android:text="@string/settings"
         android:textAlignment="center"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

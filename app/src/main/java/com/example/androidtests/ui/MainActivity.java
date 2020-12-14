@@ -15,6 +15,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         navView = findViewById(R.id.bottomNavView);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_settings)
-                .setDrawerLayout(drawer)
+                .setOpenableLayout(drawer)
                 .build();
 
         bottomAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_profil, R.id.navigation_ranking, R.id.navigation_challenges)
@@ -76,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_main_drawer, menu);
+        return(super.onCreateOptionsMenu(menu));
     }
 
     @Override

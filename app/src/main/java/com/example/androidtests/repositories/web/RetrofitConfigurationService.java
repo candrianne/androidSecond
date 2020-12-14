@@ -2,7 +2,6 @@ package com.example.androidtests.repositories.web;
 
 import android.content.Context;
 
-import com.example.androidtests.models.User;
 import com.example.androidtests.utils.ConnectivityCheckInterceptor;
 
 import okhttp3.OkHttpClient;
@@ -12,8 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitConfigurationService {
     private static final String BASE_URL = "https://ecoloapi.azurewebsites.net/";
     private static LoginApiService loginApiService = null;
-    private static UserChallengeApiService userChallengeApiService = null;
+    private static UserChallengesApiService userChallengesApiService = null;
     private static UserApiService userApiService = null;
+    private static ChallengesApiService challengesApiService = null;
     private Retrofit retrofitClient;
 
     private RetrofitConfigurationService(Context context) {
@@ -50,11 +50,18 @@ public class RetrofitConfigurationService {
         return userApiService;
     }
 
-    public UserChallengeApiService userChallengeService() {
-        if(userChallengeApiService == null) {
-            userChallengeApiService = retrofitClient.create(UserChallengeApiService.class);
+    public UserChallengesApiService userChallengeService() {
+        if(userChallengesApiService == null) {
+            userChallengesApiService = retrofitClient.create(UserChallengesApiService.class);
         }
-        return userChallengeApiService;
+        return userChallengesApiService;
+    }
+
+    public ChallengesApiService challengesApiService() {
+        if(challengesApiService == null) {
+            challengesApiService = retrofitClient.create(ChallengesApiService.class);
+        }
+        return challengesApiService;
     }
 }
 

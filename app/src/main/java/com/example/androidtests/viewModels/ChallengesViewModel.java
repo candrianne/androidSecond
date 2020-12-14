@@ -7,10 +7,12 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.androidtests.models.Challenge;
 import com.example.androidtests.models.NetworkError;
-import com.example.androidtests.models.UserChallenge;
+import com.example.androidtests.repositories.web.ChallengesApiService;
+import com.example.androidtests.repositories.web.LoginApiService;
 import com.example.androidtests.repositories.web.RetrofitConfigurationService;
-import com.example.androidtests.repositories.web.UserChallengesApiService;
+import com.example.androidtests.services.mappers.UserMapper;
 import com.example.androidtests.utils.errors.NoConnectivityException;
 
 import java.util.List;
@@ -19,35 +21,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserChallengesViewModel extends AndroidViewModel {
-    private MutableLiveData<List<UserChallenge>> _userChallenges = new MutableLiveData<>();
-    private LiveData<List<UserChallenge>> userChallenges = _userChallenges;
-
+public class ChallengesViewModel extends AndroidViewModel {
+    private MutableLiveData<List<Challenge>> _challenges = new MutableLiveData<>();
+    private LiveData<List<Challenge>> challenges = _challenges;
     private MutableLiveData<NetworkError> _error = new MutableLiveData<>();
     private LiveData<NetworkError> error = _error;
 
-    private UserChallengesApiService apiService;
+    private ChallengesApiService challengesApiService;
 
 
-    public UserChallengesViewModel(@NonNull Application application) {
+    public ChallengesViewModel(@NonNull Application application) {
         super(application);
-        apiService = RetrofitConfigurationService.getInstance(application).userChallengeService();
+        this.challengesApiService = RetrofitConfigurationService.getInstance(application).challengesApiService();
     }
 
-    public void sendRequest(Integer id) {
-        apiService.getAllUserChallenges(id).enqueue(new Callback<List<UserChallenge>>() {
+    public void sendRequest() {
+        challengesApiService.getChallenges().enqueue(new Callback<List<Challenge>>() {
             @Override
-            public void onResponse(Call<List<UserChallenge>> call, Response<List<UserChallenge>> response) {
+            public void onResponse(Call<List<Challenge>> call, Response<List<Challenge>> response) {
                 if(response.isSuccessful()) {
-                    _userChallenges.setValue(response.body());
-                    _error.setValue(null);
+                   _challenges.setValue(response.body());
+                   _error.setValue(null);
                 } else {
                     _error.setValue(NetworkError.NO_CONNECTION);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<UserChallenge>> call, Throwable t) {
+            public void onFailure(Call<List<Challenge>> call, Throwable t) {
                 if (t instanceof NoConnectivityException) {
                     _error.setValue(NetworkError.NO_CONNECTION);
                 } else {
@@ -57,9 +58,8 @@ public class UserChallengesViewModel extends AndroidViewModel {
         });
     }
 
-
-    public LiveData<List<UserChallenge>> getUserChallenges() {
-        return userChallenges;
+    public LiveData<List<Challenge>> getChallenges() {
+        return challenges;
     }
 
     public LiveData<NetworkError> getError() {

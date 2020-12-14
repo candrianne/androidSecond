@@ -10,7 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface UserChallengeApiService {
+public interface UserChallengesApiService {
     @GET("/userChallenge/{id}")
     Call<List<UserChallenge>> getAllUserChallenges(@Path(value = "id") Integer id);
 }

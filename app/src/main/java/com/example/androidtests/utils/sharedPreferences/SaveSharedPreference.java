@@ -5,8 +5,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.androidtests.models.User;
+import com.example.androidtests.models.UserChallenge;
 import com.google.gson.Gson;
 
+import java.util.List;
 import java.util.Locale;
 
 import static com.example.androidtests.utils.sharedPreferences.PreferencesUtility.LOGGED_IN_PREF;

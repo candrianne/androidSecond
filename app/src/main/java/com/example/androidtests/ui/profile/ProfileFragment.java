@@ -47,7 +47,6 @@ import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.UserChallengesViewModel;
 import com.example.androidtests.viewModels.UserViewModel;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -251,7 +250,7 @@ public class ProfileFragment extends Fragment {
         params.height = 0;
         completedChallengesRecycler.setLayoutParams(params);
         ViewGroup.LayoutParams paramsB = challengesRecycler.getLayoutParams();
-        paramsB.height = dpToPx(150);
+        paramsB.height = dpToPx(80);
         challengesRecycler.setLayoutParams(paramsB);
     }
 
@@ -260,7 +259,7 @@ public class ProfileFragment extends Fragment {
         params.height = 0;
         challengesRecycler.setLayoutParams(params);
         ViewGroup.LayoutParams paramsB = completedChallengesRecycler.getLayoutParams();
-        paramsB.height = dpToPx(150);
+        paramsB.height = dpToPx(80);
         completedChallengesRecycler.setLayoutParams(paramsB);
     }
 
@@ -330,7 +329,7 @@ public class ProfileFragment extends Fragment {
         @Override
         public UserChallengeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.challenge_item_layout, parent, false);
+                    .inflate(R.layout.user_challenge_item_layout, parent, false);
             UserChallengeViewHolder vh = new UserChallengeViewHolder(v);
             return vh;
         }
@@ -359,7 +358,7 @@ public class ProfileFragment extends Fragment {
         @Override
         public UserChallengeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.challenge_item_layout, parent, false);
+                    .inflate(R.layout.user_challenge_item_layout, parent, false);
             UserChallengeViewHolder vh = new UserChallengeViewHolder(v);
             return vh;
         }

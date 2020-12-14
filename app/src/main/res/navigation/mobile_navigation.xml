@@ -7,22 +7,34 @@
 
     <fragment
         android:id="@+id/navigation_profil"
-        android:name="com.example.androidtests.ui.profile.ProfileFragment"
-        android:label="@string/string_profil"
-        tools:layout="@layout/fragment_profile" />
+        android:name="com.example.androidtests.ui.profile.ProfileFragment" />
     <fragment
         android:id="@+id/navigation_ranking"
         android:name="com.example.androidtests.ui.ranking.Ranking"
-        android:label="@string/string_ranking"
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/navigation_challenges"
         android:name="com.example.androidtests.ui.challenges.Challenges"
         android:label="@string/string_challenges"
-        tools:layout="@layout/fragment_challenges" />
+        tools:layout="@layout/fragment_challenges">
+        <action
+            android:id="@+id/action_navigation_challenges_to_detailedChallenge"
+            app:destination="@id/detailedChallenge" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.androidtests.ui.settings.Settings"
-        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/detailedChallenge"
+        android:name="com.example.androidtests.ui.challenges.DetailedChallenge"
+        android:label="fragment_detailed_challenge"
+        tools:layout="@layout/fragment_detailed_challenge">
+        <argument
+            android:name="challenge"
+            app:argType="com.example.androidtests.models.Challenge" />
+        <argument
+            android:name="userChallenges"
+            app:argType="com.example.androidtests.models.UserChallenge[]" />
+    </fragment>
 </navigation>
