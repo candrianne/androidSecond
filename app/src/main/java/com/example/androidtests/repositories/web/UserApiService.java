@@ -11,6 +11,6 @@ import retrofit2.http.PATCH;
 
 public interface UserApiService {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    @PATCH("/user/")
+    @PATCH("user/")
     Call<ResponseBody> updateUser(@Body User user , @Header("Authorization") String auth);
 }

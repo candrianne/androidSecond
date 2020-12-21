@@ -19,6 +19,7 @@ import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 
 import org.json.JSONException;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,6 +27,9 @@ import retrofit2.Response;
 public class LoginViewModel extends AndroidViewModel {
     private MutableLiveData<User> _user = new MutableLiveData<>();
     private LiveData<User> user = _user;
+
+    private MutableLiveData<Boolean> _registered = new MutableLiveData<>();
+    private LiveData<Boolean> registered = _registered;
 
     private MutableLiveData<NetworkError> _error = new MutableLiveData<>();
     private LiveData<NetworkError> error = _error;
@@ -55,7 +59,7 @@ public class LoginViewModel extends AndroidViewModel {
                         e.printStackTrace();
                     }
                 } else {
-                    _error.setValue(NetworkError.NO_CONNECTION);
+                    _error.setValue(NetworkError.REQUEST_ERROR);
                 }
             }
 
@@ -70,11 +74,27 @@ public class LoginViewModel extends AndroidViewModel {
         });
     }
 
+    public void register(User newUser) {
+        loginApiService.register(newUser).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    _registered.setValue(true);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("f");
+            }
+        });
+    }
+
     public LiveData<User> getUser() {
         return user;
     }
-
     public LiveData<NetworkError> getError() {
         return error;
     }
+    public LiveData<Boolean> getRegistered() {return registered;}
 }

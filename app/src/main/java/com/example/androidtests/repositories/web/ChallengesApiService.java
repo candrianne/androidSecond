@@ -8,6 +8,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ChallengesApiService {
-    @GET("/challenge/")
+    @GET("challenge/")
     Call<List<Challenge>> getChallenges();
 }

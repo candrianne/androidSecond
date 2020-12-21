@@ -49,4 +49,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="Difficulty">Difficulty</string>
+    <string name="lastName">lastname</string>
+    <string name="firstName">firstname</string>
+    <string name="confirmPassword">confirm</string>
+    <string name="birthYear">birth year</string>
+    <string name="validate">validate</string>
+    <string name="back">back</string>
 </resources>

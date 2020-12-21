@@ -10,7 +10,7 @@
         android:id="@+id/welcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="121dp"
+        android:layout_marginTop="90dp"
         android:text="@string/welcome_title"
         android:textAlignment="center"
         android:textSize="30sp"
@@ -22,15 +22,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loginForm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="350dp"
-        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/welcomeTextView"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:id="@+id/registerButton"
@@ -79,5 +75,119 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/signUpForm"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:columnCount="2"
+            android:rowCount="6"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/firstName" />
+
+            <EditText
+                android:id="@+id/firstNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/firstName"
+                android:background="@drawable/border_search"
+                android:padding="4px"
+                android:text="@string/firstName" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lastName" />
+
+            <EditText
+                android:id="@+id/lastNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/lastName"
+                android:background="@drawable/border_search"
+                android:padding="4px"
+                android:text="@string/lastName" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email_title" />
+
+            <EditText
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/email_title"
+                android:background="@drawable/border_search"
+                android:padding="4px"
+                android:text="@string/email_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password_title" />
+
+            <EditText
+                android:id="@+id/passwordText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/password_title"
+                android:background="@drawable/border_search"
+                android:padding="4px"
+                android:text="@string/password_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirmPassword" />
+
+            <EditText
+                android:id="@+id/confirmText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/confirmPassword"
+                android:background="@drawable/border_search"
+                android:padding="4px"
+                android:text="@string/confirmPassword" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/birthYear" />
+
+            <Spinner
+                android:id="@+id/yearSpinner"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/back" />
+
+            <Button
+                android:id="@+id/validateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/validate" />
+        </GridLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,8 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
     String token;
-    String firstName,lastName,email, photo;
-    Integer id, score;
+    String firstName,lastName,email, photo, password;
+    Integer id, score, birthYear;
 
     public User(String token, String firstName, String lastName, String email, Integer id, String photo) {
         this.token = token;
@@ -16,6 +16,14 @@ public class User implements Parcelable {
         this.id = id;
         this.score = null;
         this.photo = photo;
+    }
+
+    public User(String firstName, String lastName, String email, String password, Integer birthYear) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.birthYear = birthYear;
     }
 
     public User() {

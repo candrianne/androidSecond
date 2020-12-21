@@ -11,6 +11,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface UserChallengesApiService {
-    @GET("/userChallenge/{id}")
+    @GET("userChallenge/{id}")
     Call<List<UserChallenge>> getAllUserChallenges(@Path(value = "id") Integer id);
 }

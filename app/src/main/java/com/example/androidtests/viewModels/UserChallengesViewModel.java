@@ -42,7 +42,7 @@ public class UserChallengesViewModel extends AndroidViewModel {
                     _userChallenges.setValue(response.body());
                     _error.setValue(null);
                 } else {
-                    _error.setValue(NetworkError.NO_CONNECTION);
+                    _error.setValue(NetworkError.REQUEST_ERROR);
                 }
             }
 

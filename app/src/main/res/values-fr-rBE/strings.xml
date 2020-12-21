@@ -43,4 +43,10 @@
     <string name="menu_home">Accueil</string>
     <string name="menu_gallery">Gallerie</string>
     <string name="Difficulty">Difficulté</string>
+    <string name="lastName">nom</string>
+    <string name="firstName">prénom</string>
+    <string name="confirmPassword">confirmer</string>
+    <string name="birthYear">année de naissance</string>
+    <string name="validate">valider</string>
+    <string name="back">retour</string>
 </resources>

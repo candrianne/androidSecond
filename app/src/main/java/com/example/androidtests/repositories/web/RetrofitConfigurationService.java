@@ -9,7 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConfigurationService {
-    private static final String BASE_URL = "https://ecoloapi.azurewebsites.net/";
+    private static final String BASE_URL = "https://ecoloapi.azurewebsites.net/1.0/";
     private static LoginApiService loginApiService = null;
     private static UserChallengesApiService userChallengesApiService = null;
     private static UserApiService userApiService = null;

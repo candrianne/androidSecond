@@ -43,7 +43,7 @@ public class ChallengesViewModel extends AndroidViewModel {
                    _challenges.setValue(response.body());
                    _error.setValue(null);
                 } else {
-                    _error.setValue(NetworkError.NO_CONNECTION);
+                    _error.setValue(NetworkError.REQUEST_ERROR);
                 }
             }
 
