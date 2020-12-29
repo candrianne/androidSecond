@@ -2,14 +2,21 @@ package com.example.androidtests.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 
 import com.example.androidtests.R;
+import com.example.androidtests.ui.MainActivity;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
+
+import static android.provider.Settings.System.getString;
 
 public class General {
     public static void triggerRebirth(Context context) {

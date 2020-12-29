@@ -55,4 +55,23 @@
     <string name="birthYear">birth year</string>
     <string name="validate">validate</string>
     <string name="back">back</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="your_friends">Your friends</string>
+    <string name="add_friend">Add friend</string>
+    <string name="friends">friends</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="search_id">Search by Id</string>
+    <string name="add">Add</string>
+    <string name="results">Results</string>
+    <string name="add_user_confirmation">add the user</string>
+    <string name="request_send_confirmation">Friendrequest send</string>
+    <string name="request_not_send">Friendrequest could not have been send</string>
+    <string name="already_friend">This user is already your friend</string>
+    <string name="friend_requests">friend requests</string>
+    <string name="friendship_created_message">You\'re now friends !</string>
+    <string name="error_creating_friendship_message">problem creating the friendship</string>
+    <string name="no_friend_requests">No friend requests</string>
+    <string name="friend_request_notification">sent you a friend request</string>
+    <string name="request_deleted_confirmation">friend request denied</string>
+    <string name="request_not_deleted">problem : friend request not deleted</string>
 </resources>

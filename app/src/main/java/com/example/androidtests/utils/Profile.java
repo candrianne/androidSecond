@@ -22,6 +22,7 @@ public class Profile {
             } else {
                 globalScore += getDifferenceDays(challenge.getstartdate(), java.util.Calendar.getInstance().getTime()) * challenge.getScore();
             }
+            globalScore -= challenge.getNbpausedays() * challenge.getScore();
         }
         return globalScore;
     }

@@ -38,6 +38,16 @@ public class SaveSharedPreference {
         return gson.fromJson(json, User.class);
     }
 
+    public static void setFirebaseToken(Context context, String token) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.putString("fcm_token", token);
+        editor.commit();
+    }
+
+    public static String getFirebaseToken(Context context) {
+        return getPreferences(context).getString("fcm_token", "");
+    }
+
     public static boolean getLoggedStatus(Context context) {
         return getPreferences(context).getBoolean(LOGGED_IN_PREF, false);
     }

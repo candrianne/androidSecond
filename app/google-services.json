@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "333970739158",
+    "project_id": "ecoloapp-52362",
+    "storage_bucket": "ecoloapp-52362.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333970739158:android:6054714d905db38f789e77",
+        "android_client_info": {
+          "package_name": "com.example.androidtests"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333970739158-4cs620d0ppkkuu903aoj6lbj80qh06vl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdugyavpSI3ziyHHa2ZR64xhrzrN5PE-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333970739158-4cs620d0ppkkuu903aoj6lbj80qh06vl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

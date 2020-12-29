@@ -44,6 +44,7 @@ public class Challenges extends Fragment {
     private List<UserChallenge> userChallenges;
     private List<Challenge> allChallenges;
     ChallengesAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,13 +10,14 @@ public class UserChallenge implements Parcelable {
     private Date startdate;
     private Date enddate;
     private String name;
-    private Integer score;
+    private Integer score, nbpausedays;
 
-    public UserChallenge(Date startdate, Date enddate, String name, Integer score) {
+    public UserChallenge(Date startdate, Date enddate, String name, Integer score, Integer nbpausedays) {
         this.startdate = startdate;
         this.enddate = enddate;
         this.name = name;
         this.score = score;
+        this.nbpausedays = nbpausedays;
     }
 
     protected UserChallenge(Parcel in) {
@@ -25,6 +26,11 @@ public class UserChallenge implements Parcelable {
             score = null;
         } else {
             score = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            nbpausedays = null;
+        } else {
+            nbpausedays = in.readInt();
         }
     }
 
@@ -36,6 +42,12 @@ public class UserChallenge implements Parcelable {
         } else {
             dest.writeByte((byte) 1);
             dest.writeInt(score);
+        }
+        if (nbpausedays == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(nbpausedays);
         }
     }
 
@@ -86,5 +98,13 @@ public class UserChallenge implements Parcelable {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Integer getNbpausedays() {
+        return nbpausedays;
+    }
+
+    public void setNbpausedays(Integer nbpausedays) {
+        this.nbpausedays = nbpausedays;
     }
 }

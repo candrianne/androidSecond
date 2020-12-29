@@ -52,7 +52,7 @@ public class LoginViewModel extends AndroidViewModel {
             public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
                 if(response.isSuccessful()) {
                     try {
-                        _user.setValue(loginMapper.mapToUser(response.body()));
+                        _user.setValue(loginMapper.mapToUser(response.body(), getApplication()));
                         _error.setValue(null);
                         SaveSharedPreference.setLoggedIn(app, true);
                     } catch (JSONException e) {

@@ -49,4 +49,21 @@
     <string name="birthYear">année de naissance</string>
     <string name="validate">valider</string>
     <string name="back">retour</string>
+    <string name="your_friends">Vos amis</string>
+    <string name="add_friend">ajouter un ami</string>
+    <string name="friends">amis</string>
+    <string name="search_id">Rechercher par Id</string>
+    <string name="add">Ajouter</string>
+    <string name="results">Resultats</string>
+    <string name="add_user_confirmation">ajouter l\'utilisateur:</string>
+    <string name="request_not_send">la demande d\'ami n\'a pas pu être envoyée</string>
+    <string name="request_send_confirmation">demande d\'ami envoyée</string>
+    <string name="already_friend">cet utilisateur est déja votre ami</string>
+    <string name="friend_requests">demandes d\'ami</string>
+    <string name="friendship_created_message">"Vous êtes amis ! "</string>
+    <string name="error_creating_friendship_message">problème</string>
+    <string name="no_friend_requests">Pas de demandes d\'ami</string>
+    <string name="friend_request_notification">vous a envoyé une demande d\'ami</string>
+    <string name="request_deleted_confirmation">demande d\'ami déclinée</string>
+    <string name="request_not_deleted">problème : demande d\'ami pas supprimée</string>
 </resources>

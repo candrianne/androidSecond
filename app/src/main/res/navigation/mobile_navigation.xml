@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation.xml"
+    android:label="@string/your_friends"
     app:startDestination="@id/navigation_profil">
 
     <fragment
         android:id="@+id/navigation_profil"
-        android:name="com.example.androidtests.ui.profile.ProfileFragment" />
+        android:name="com.example.androidtests.ui.profile.ProfileFragment"
+        android:label="@string/profile_menu_title" />
     <fragment
         android:id="@+id/navigation_ranking"
         android:name="com.example.androidtests.ui.ranking.Ranking"
+        android:label="@string/string_ranking"
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/navigation_challenges"
@@ -24,6 +27,7 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.androidtests.ui.settings.Settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/detailedChallenge"
@@ -37,4 +41,26 @@
             android:name="userChallenges"
             app:argType="com.example.androidtests.models.UserChallenge[]" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_friends"
+        android:name="com.example.androidtests.ui.friends.Friends"
+        android:label="@string/friends"
+        tools:layout="@layout/friends_fragment">
+        <action
+            android:id="@+id/action_navigation_friends_to_addfriend"
+            app:destination="@id/navigation_addfriend" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_addfriend"
+        android:name="com.example.androidtests.ui.friends.Addfriend"
+        android:label="@string/add_friend">
+        <argument
+            android:name="friends"
+            app:argType="com.example.androidtests.models.Friend[]"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_friendRequests"
+        android:name="com.example.androidtests.ui.friends.FriendRequests"
+        android:label="@string/friend_requests" />
 </navigation>

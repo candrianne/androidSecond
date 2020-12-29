@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:padding="5dp"
+    android:layout_weight="5">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profilePictureImageView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:textAlignment="center" />
+    <ImageButton
+        android:id="@+id/acceptButton"
+        android:layout_width="0dp"
+        android:background="@null"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/accept"
+        android:contentDescription="accept" />
+    <ImageButton
+        android:id="@+id/denyButton"
+        android:background="@null"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/deny"
+        android:contentDescription="TODO" />
+</LinearLayout>

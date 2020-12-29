@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         signInButton.setOnClickListener(v -> {
             String password = binding.editTextTextPassword.getText().toString();
             String email = binding.editTextTextEmailAddress.getText().toString();
+            String firebaseToken = SaveSharedPreference.getFirebaseToken(getBaseContext());
             UserLoginRequest requestBody = new UserLoginRequest(email, password);
             sendRequest(requestBody);
         });

@@ -14,6 +14,7 @@ public class RetrofitConfigurationService {
     private static UserChallengesApiService userChallengesApiService = null;
     private static UserApiService userApiService = null;
     private static ChallengesApiService challengesApiService = null;
+    private static FriendsApiService friendsApiService = null;
     private Retrofit retrofitClient;
 
     private RetrofitConfigurationService(Context context) {
@@ -34,6 +35,13 @@ public class RetrofitConfigurationService {
 
     public static RetrofitConfigurationService getInstance(Context context) {
         return new RetrofitConfigurationService(context);
+    }
+
+    public FriendsApiService friendsApiService() {
+        if (friendsApiService == null) {
+            friendsApiService = retrofitClient.create(FriendsApiService.class);
+        }
+        return friendsApiService;
     }
 
     public LoginApiService loginService() {

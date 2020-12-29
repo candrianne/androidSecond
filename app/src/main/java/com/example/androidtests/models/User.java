@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
     String token;
-    String firstName,lastName,email, photo, password;
+    String firstName,lastName,email, photo, password, firebaseToken;
     Integer id, score, birthYear;
 
     public User(String token, String firstName, String lastName, String email, Integer id, String photo) {
@@ -42,6 +42,7 @@ public class User implements Parcelable {
         }
         score = in.readInt();
         photo = in.readString();
+        firebaseToken = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -67,6 +68,8 @@ public class User implements Parcelable {
     public Integer getId() {
         return id;
     }
+
+    public void setId(Integer id) { this.id = id; }
 
     public String getLastName() {
         return lastName;
@@ -101,6 +104,26 @@ public class User implements Parcelable {
         return 0;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setBirthYear(Integer birthYear) {
+        this.birthYear = birthYear;
+    }
+
+    public String getFirebaseToken() {
+        return firebaseToken;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(token);
@@ -110,5 +133,6 @@ public class User implements Parcelable {
         dest.writeInt(id);
         dest.writeInt(score);
         dest.writeString(photo);
+        dest.writeString(firebaseToken);
     }
 }
