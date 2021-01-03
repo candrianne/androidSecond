@@ -1,7 +1,7 @@
 package com.example.androidtests.repositories.web;
 
 import com.example.androidtests.models.User;
-import com.example.androidtests.repositories.web.dto.UserFriendDTO;
+import com.example.androidtests.repositories.web.dto.UserDTO;
 
 import java.util.List;
 
@@ -20,5 +20,9 @@ public interface UserApiService {
     Call<ResponseBody> updateUser(@Body User user , @Header("Authorization") String auth);
 
     @GET("user/{id}")
-    Call<UserFriendDTO> getUser(@Path(value = "id") Integer id);
+    Call<UserDTO> getUser(@Path(value = "id") Integer id);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @GET("user/")
+    Call<List<UserDTO>> getAllUsers(@Header("Authorization") String auth);
 }

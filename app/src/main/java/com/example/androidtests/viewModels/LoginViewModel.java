@@ -12,7 +12,7 @@ import com.example.androidtests.models.User;
 import com.example.androidtests.models.UserLoginRequest;
 import com.example.androidtests.repositories.web.LoginApiService;
 import com.example.androidtests.repositories.web.RetrofitConfigurationService;
-import com.example.androidtests.repositories.web.dto.UserDTO;
+import com.example.androidtests.repositories.web.dto.UserloginDTO;
 import com.example.androidtests.services.mappers.UserMapper;
 import com.example.androidtests.utils.errors.NoConnectivityException;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
@@ -47,12 +47,12 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void login(UserLoginRequest loginInfos) {
-        loginApiService.login(loginInfos).enqueue(new Callback<UserDTO>() {
+        loginApiService.login(loginInfos).enqueue(new Callback<UserloginDTO>() {
             @Override
-            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+            public void onResponse(Call<UserloginDTO> call, Response<UserloginDTO> response) {
                 if(response.isSuccessful()) {
                     try {
-                        _user.setValue(loginMapper.mapToUser(response.body(), getApplication()));
+                        _user.setValue(loginMapper.mapTokenToUser(response.body(), getApplication()));
                         _error.setValue(null);
                         SaveSharedPreference.setLoggedIn(app, true);
                     } catch (JSONException e) {
@@ -64,7 +64,7 @@ public class LoginViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFailure(Call<UserDTO> call, Throwable t) {
+            public void onFailure(Call<UserloginDTO> call, Throwable t) {
                 if (t instanceof NoConnectivityException) {
                     _error.setValue(NetworkError.NO_CONNECTION);
                 } else {

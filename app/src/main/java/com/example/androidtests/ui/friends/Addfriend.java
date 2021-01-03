@@ -14,8 +14,9 @@ import com.example.androidtests.models.Friend;
 import com.example.androidtests.models.User;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.FriendRequestViewModel;
-import com.example.androidtests.viewModels.UserViewModel;
+import com.example.androidtests.viewModels.UserVModel;
 import com.example.androidtests.utils.Notifications;
+import com.example.androidtests.viewModels.UserViewModel;
 
 import org.json.JSONException;
 

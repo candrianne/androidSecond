@@ -3,7 +3,6 @@ package com.example.androidtests.services.mappers;
 import com.example.androidtests.models.Friend;
 import com.example.androidtests.models.User;
 import com.example.androidtests.models.UserChallenge;
-import com.example.androidtests.repositories.web.dto.UserDTO;
 
 import java.util.List;
 

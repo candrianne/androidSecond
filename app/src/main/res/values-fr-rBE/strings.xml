@@ -66,4 +66,7 @@
     <string name="friend_request_notification">vous a envoyé une demande d\'ami</string>
     <string name="request_deleted_confirmation">demande d\'ami déclinée</string>
     <string name="request_not_deleted">problème : demande d\'ami pas supprimée</string>
+    <string name="your_rank">votre rang</string>
+    <string name="your_username">votre nom</string>
+    <string name="your_total_points">vos points</string>
 </resources>

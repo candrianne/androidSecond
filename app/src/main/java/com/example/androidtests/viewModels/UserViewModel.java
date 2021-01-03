@@ -11,15 +11,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.androidtests.R;
 import com.example.androidtests.models.NetworkError;
 import com.example.androidtests.models.User;
-import com.example.androidtests.models.UserChallenge;
 import com.example.androidtests.repositories.web.RetrofitConfigurationService;
 import com.example.androidtests.repositories.web.UserApiService;
-import com.example.androidtests.repositories.web.dto.UserFriendDTO;
+import com.example.androidtests.repositories.web.dto.UserDTO;
 import com.example.androidtests.services.mappers.UserMapper;
 import com.example.androidtests.utils.errors.NoConnectivityException;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
-
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -58,11 +55,11 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public void getUserById(Integer id) {
-        userApiService.getUser(id).enqueue(new Callback<UserFriendDTO>() {
+        userApiService.getUser(id).enqueue(new Callback<UserDTO>() {
             @Override
-            public void onResponse(Call<UserFriendDTO> call, Response<UserFriendDTO> response) {
+            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
                 if(response.isSuccessful()) {
-                    _user.setValue(userMapper.mapFriendToUser(response.body()));
+                    _user.setValue(userMapper.mapToUser(response.body()));
                     _error.setValue(null);
                 } else {
                     _error.setValue(NetworkError.REQUEST_ERROR);
@@ -70,7 +67,7 @@ public class UserViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFailure(Call<UserFriendDTO> call, Throwable t) {
+            public void onFailure(Call<UserDTO> call, Throwable t) {
                 if (t instanceof NoConnectivityException) {
                     _error.setValue(NetworkError.NO_CONNECTION);
                 } else {
@@ -78,6 +75,10 @@ public class UserViewModel extends AndroidViewModel {
                 }
             }
         });
+    }
+
+    public void getAllUsers() {
+
     }
 
     public LiveData<User> getUser() {

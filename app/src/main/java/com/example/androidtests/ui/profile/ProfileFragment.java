@@ -27,11 +27,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +45,7 @@ import com.example.androidtests.models.UserChallenge;
 import com.example.androidtests.utils.Profile;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.UserChallengesViewModel;
-import com.example.androidtests.viewModels.UserViewModel;
+import com.example.androidtests.viewModels.UserVModel;
 
 import java.util.List;
 import java.util.Map;
@@ -63,7 +60,7 @@ public class ProfileFragment extends Fragment {
     RecyclerView completedChallengesRecycler, challengesRecycler;
     Button showCompletedChallengesButton, showChallengesButton;
     private UserChallengesViewModel userChallengesViewModel;
-    private UserViewModel userViewModel;
+    private UserVModel userViewModel;
     private static final int PERMISSION_CODE =1;
     private static final int PICK_IMAGE=1;
     User connectedUser;
@@ -78,7 +75,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         userChallengesViewModel = new ViewModelProvider(this).get(UserChallengesViewModel.class);
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserVModel.class);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         completedChallengesRecycler = binding.completedChallengesRecyclerView;
@@ -112,6 +109,7 @@ public class ProfileFragment extends Fragment {
             binding.errorImageView.setVisibility(View.GONE);
             binding.visibleLayout.setVisibility(View.VISIBLE);
             connectedUser.setScore(Profile.calculateUserScore(challenges));
+            SaveSharedPreference.setLogedInUser(getContext(), connectedUser);
             binding.nbPointsTextView.setText(connectedUser.getScore() + " POINTS");
             loadProfilePicture(connectedUser);
             adapter.setChallenges(challenges.stream()

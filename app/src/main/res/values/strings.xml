@@ -74,4 +74,8 @@
     <string name="friend_request_notification">sent you a friend request</string>
     <string name="request_deleted_confirmation">friend request denied</string>
     <string name="request_not_deleted">problem : friend request not deleted</string>
+    <string name="your_rank">your rank</string>
+    <string name="your_username">your username</string>
+    <string name="your_total_points">your points</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

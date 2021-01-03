@@ -3,9 +3,8 @@ package com.example.androidtests.services.mappers;
 import android.content.Context;
 
 import com.example.androidtests.models.User;
+import com.example.androidtests.repositories.web.dto.UserloginDTO;
 import com.example.androidtests.repositories.web.dto.UserDTO;
-import com.example.androidtests.repositories.web.dto.UserFriendDTO;
-import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +25,7 @@ public class UserMapper {
         return instance;
     }
 
-    public User mapToUser(UserDTO dto, Context context) throws JSONException {
+    public User mapTokenToUser(UserloginDTO dto, Context context) throws JSONException {
         if (dto == null) {
             return null;
         }
@@ -40,7 +39,7 @@ public class UserMapper {
                 decodedPayload.getJSONObject("value").getString("photo"));
     }
 
-    public User mapFriendToUser(UserFriendDTO dto)  {
+    public User mapToUser(UserDTO dto)  {
         if (dto == null) {
             return null;
         }

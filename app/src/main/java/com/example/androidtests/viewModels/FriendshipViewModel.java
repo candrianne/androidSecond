@@ -6,22 +6,17 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.androidtests.models.Challenge;
 import com.example.androidtests.models.Friend;
-import com.example.androidtests.models.FriendRequest;
 import com.example.androidtests.models.Friendship;
 import com.example.androidtests.models.NetworkError;
 import com.example.androidtests.models.User;
 import com.example.androidtests.models.UserChallenge;
-import com.example.androidtests.repositories.web.ChallengesApiService;
 import com.example.androidtests.repositories.web.FriendsApiService;
 import com.example.androidtests.repositories.web.RetrofitConfigurationService;
 import com.example.androidtests.repositories.web.UserApiService;
 import com.example.androidtests.repositories.web.UserChallengesApiService;
-import com.example.androidtests.repositories.web.dto.UserFriendDTO;
-import com.example.androidtests.services.mappers.FriendMapper;
+import com.example.androidtests.repositories.web.dto.UserDTO;
 import com.example.androidtests.services.mappers.UserMapper;
 import com.example.androidtests.utils.errors.NoConnectivityException;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
@@ -73,10 +68,10 @@ public class FriendshipViewModel extends AndroidViewModel {
                     }
                     i = 0;
                     for(Integer id : idsList) {
-                        userApiService.getUser(id).enqueue(new Callback<UserFriendDTO>() {
+                        userApiService.getUser(id).enqueue(new Callback<UserDTO>() {
                             @Override
-                            public void onResponse(Call<UserFriendDTO> call, Response<UserFriendDTO> response) {
-                                User user = userMapper.mapFriendToUser(response.body());
+                            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                                User user = userMapper.mapToUser(response.body());
                                 userChallengesApiService.getAllUserChallenges(user.getId()).enqueue(new Callback<List<UserChallenge>>() {
                                     @Override
                                     public void onResponse(Call<List<UserChallenge>> call, Response<List<UserChallenge>> response) {
@@ -102,7 +97,7 @@ public class FriendshipViewModel extends AndroidViewModel {
                             }
 
                             @Override
-                            public void onFailure(Call<UserFriendDTO> call, Throwable t) {
+                            public void onFailure(Call<UserDTO> call, Throwable t) {
                                 if (t instanceof NoConnectivityException) {
                                     _error.setValue(NetworkError.NO_CONNECTION);
                                 } else {
