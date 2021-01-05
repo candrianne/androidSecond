@@ -38,6 +38,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="suggest_challenge">Suggest a challenge</string>
     <string name="in_progress">In progress</string>
+    <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="start">Start</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -77,5 +78,7 @@
     <string name="your_rank">your rank</string>
     <string name="your_username">your username</string>
     <string name="your_total_points">your points</string>
+    <string name="userChallenge_updated_message">user\'s challenge created, resumed or pause</string>
+    <string name="userChallenge_not_updated_message">problem with user\'s challenge update</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

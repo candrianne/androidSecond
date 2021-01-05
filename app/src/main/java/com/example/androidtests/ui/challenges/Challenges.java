@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.androidtests.R;
 import com.example.androidtests.databinding.FragmentChallengesBinding;
@@ -28,6 +29,7 @@ import com.example.androidtests.models.Challenge;
 import com.example.androidtests.models.NetworkError;
 import com.example.androidtests.models.User;
 import com.example.androidtests.models.UserChallenge;
+import com.example.androidtests.utils.General;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.ChallengesViewModel;
 import com.example.androidtests.viewModels.UserChallengesViewModel;
@@ -66,9 +68,15 @@ public class Challenges extends Fragment {
 
         int searchCloseButtonId = binding.challengeSearchView.getContext().getResources()
                 .getIdentifier("android:id/search_close_btn", null, null);
-        ImageView closeButton = (ImageView) this.binding.challengeSearchView.findViewById(searchCloseButtonId);
+        ImageView closeButton = this.binding.challengeSearchView.findViewById(searchCloseButtonId);
 
         viewModel.getChallenges().observe(getViewLifecycleOwner(), adapter::initChallenges);
+        userChallengesViewModel.getUpdated().observe(getViewLifecycleOwner(), updated -> {
+            int messageId = updated ?
+                    R.string.userChallenge_updated_message : R.string.userChallenge_not_updated_message;
+            Toast.makeText(getContext(), messageId, Toast.LENGTH_LONG).show();
+            if(updated) sendRequest(SaveSharedPreference.getLogedInUser(getContext()).getId());
+        });
 
 
         binding.challengeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -112,7 +120,7 @@ public class Challenges extends Fragment {
     }
 
     private void sendRequest(int id) {
-        userChallengesViewModel.sendRequest(id);
+        userChallengesViewModel.getAllUserChallenges(id);
         binding.visibleLayout.setVisibility(View.GONE);
         binding.errorImageView.setVisibility(View.GONE);
         binding.challengeProgressBar.setVisibility(View.VISIBLE);
@@ -147,13 +155,13 @@ public class Challenges extends Fragment {
 
     private static class ChallengesViewHolder extends RecyclerView.ViewHolder {
         public TextView difficulty, name;
-        public Button startAndStop;
+        public Button actionButton;
 
         public ChallengesViewHolder(@NonNull View itemView) {
             super(itemView);
             difficulty = itemView.findViewById(R.id.difficultyView);
             name = itemView.findViewById(R.id.challengeNameTextView);
-            startAndStop = itemView.findViewById(R.id.startStopButton);
+            actionButton = itemView.findViewById(R.id.startStopButton);
         }
     }
 
@@ -175,7 +183,26 @@ public class Challenges extends Fragment {
             holder.name.setText(challenge.getName());
             holder.name.setOnClickListener(this::displayedDetailedChallenge);
             holder.difficulty.setText(challenge.getDifficulty());
-            holder.startAndStop.setText(Challenges.this.getButtonText(challenge));
+            holder.actionButton.setText(getButtonText(challenge));
+            holder.actionButton.setOnClickListener(view -> challengeAction(view,
+                    holder.name.getText().toString()));
+        }
+
+        private void challengeAction(View view, String name) {
+            String action  = ((Button)view).getText().toString();
+            switch(action) {
+                case "Pause" :
+                    userChallengesViewModel.resumeOrPauseChallenge("pause",
+                            getUserChallengeByName(name).getChallengeid());
+                    break;
+                case "Resume" :
+                case "Reprendre" :
+                    userChallengesViewModel.resumeOrPauseChallenge("resume",
+                            getUserChallengeByName(name).getChallengeid());
+                    break;
+                default:
+                    userChallengesViewModel.createUserChallenge(getChallengeByName(name).getId());
+            }
         }
 
         @Override
@@ -211,14 +238,19 @@ public class Challenges extends Fragment {
         }
     }
 
+    private UserChallenge getUserChallengeByName(String name) {
+        return userChallenges.stream().filter(userChallenge -> userChallenge.getName()
+                .equals(name)).findFirst().get();
+    }
+
     private String getButtonText(Challenge challenge) {
         List<UserChallenge> challenges =
                 userChallenges.stream().filter(userChallenge -> userChallenge.getName().equals(challenge.getName()))
                 .collect(Collectors.toList());
 
         if(challenges.size() == 1) {
-            return challenges.get(0).getenddate() == null ?
-                    getResources().getString(R.string.in_progress) :
+            return challenges.get(0).getState() == General.state.IN_PROGRESS ?
+                    getResources().getString(R.string.pause) :
                     getResources().getString(R.string.resume);
         }
         return getResources().getString(R.string.start);

@@ -22,7 +22,7 @@ import com.example.androidtests.models.User;
 import com.example.androidtests.utils.ContextWrapper;
 import com.example.androidtests.utils.General;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
-import com.example.androidtests.viewModels.UserVModel;
+import com.example.androidtests.viewModels.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private AppBarConfiguration bottomAppBarConfiguration;
     public static final String FRIENDS_CHANNEL_ID = "friendsChannelId";
-    private UserVModel userViewModel;
+    private UserViewModel userViewModel;
     private User logedInUser;
     Map config = new HashMap();
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         BottomNavigationView navView = findViewById(R.id.bottomNavView);
 
-        userViewModel = new ViewModelProvider(this).get(UserVModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_settings,
                 R.id.navigation_profil, R.id.navigation_ranking, R.id.navigation_challenges, R.id.navigation_friends,

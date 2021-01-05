@@ -69,4 +69,7 @@
     <string name="your_rank">votre rang</string>
     <string name="your_username">votre nom</string>
     <string name="your_total_points">vos points</string>
+    <string name="pause">Pause</string>
+    <string name="userChallenge_updated_message">challenge ajouté, repris ou mis en pause</string>
+    <string name="userChallenge_not_updated_message">problème lors de la mise à jour du challenge</string>
 </resources>

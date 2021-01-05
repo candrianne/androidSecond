@@ -22,9 +22,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserVModel(application: Application) : AndroidViewModel(application) {
+class UserViewModel(application: Application) : AndroidViewModel(application) {
+    lateinit var user: LiveData<User>
     private var _user = MutableLiveData<User>()
-    private var user: LiveData<User> = _user
     private var _users = MutableLiveData<List<User>>()
     var users : LiveData<List<User>> = _users
     private var _error = MutableLiveData<NetworkError?>()
@@ -47,6 +47,7 @@ class UserVModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getUserById(id: Int?) {
+        user = _user
         userApiService.getUser(id).enqueue(object : Callback<UserDTO?> {
             override fun onResponse(call: Call<UserDTO?>, response: Response<UserDTO?>) {
                 if (response.isSuccessful) {
@@ -96,7 +97,7 @@ class UserVModel(application: Application) : AndroidViewModel(application) {
                                    val score = Profile.calculateUserScore(response.body())
                                    users[ind]?.score = score
                                    if(ind == users.size - 1) {
-                                       _users.value = users.sortedBy { user -> user?.score }.toList() as List<User>?
+                                       _users.value = users.sortedByDescending { user -> user?.score }.toList() as List<User>?
                                        _error.value = null
                                    }
                                } else {

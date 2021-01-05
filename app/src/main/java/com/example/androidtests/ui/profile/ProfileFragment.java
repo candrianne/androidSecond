@@ -45,7 +45,7 @@ import com.example.androidtests.models.UserChallenge;
 import com.example.androidtests.utils.Profile;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.UserChallengesViewModel;
-import com.example.androidtests.viewModels.UserVModel;
+import com.example.androidtests.viewModels.UserViewModel;
 
 import java.util.List;
 import java.util.Map;
@@ -60,7 +60,7 @@ public class ProfileFragment extends Fragment {
     RecyclerView completedChallengesRecycler, challengesRecycler;
     Button showCompletedChallengesButton, showChallengesButton;
     private UserChallengesViewModel userChallengesViewModel;
-    private UserVModel userViewModel;
+    private UserViewModel userViewModel;
     private static final int PERMISSION_CODE =1;
     private static final int PICK_IMAGE=1;
     User connectedUser;
@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         userChallengesViewModel = new ViewModelProvider(this).get(UserChallengesViewModel.class);
-        userViewModel = new ViewModelProvider(this).get(UserVModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         completedChallengesRecycler = binding.completedChallengesRecyclerView;
@@ -240,7 +240,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void sendRequest(int id) {
-        userChallengesViewModel.sendRequest(id);
+        userChallengesViewModel.getAllUserChallenges(id);
         binding.visibleLayout.setVisibility(View.GONE);
         binding.errorImageView.setVisibility(View.GONE);
         binding.challengeProgressBar.setVisibility(View.VISIBLE);

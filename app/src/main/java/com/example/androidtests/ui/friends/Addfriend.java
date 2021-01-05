@@ -14,9 +14,8 @@ import com.example.androidtests.models.Friend;
 import com.example.androidtests.models.User;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.FriendRequestViewModel;
-import com.example.androidtests.viewModels.UserVModel;
-import com.example.androidtests.utils.Notifications;
 import com.example.androidtests.viewModels.UserViewModel;
+import com.example.androidtests.utils.Notifications;
 
 import org.json.JSONException;
 
@@ -34,7 +33,6 @@ public class Addfriend extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Friend[] friendsArray = (Friend[]) getArguments().getParcelableArray("friends");
             friends = Arrays.asList(friendsArray);
@@ -50,7 +48,7 @@ public class Addfriend extends Fragment {
         addFriendButton = root.findViewById(R.id.searchUserButton);
         searchIdTextView = root.findViewById(R.id.searchIdEditText);
 
-        viewModel.getUser().observe(getViewLifecycleOwner(), this::displayConfirmAddMessage);
+        viewModel.user.observe(getViewLifecycleOwner(), this::displayConfirmAddMessage);
         friendRequestsViewModel.getSent().observe(getViewLifecycleOwner(), res -> {
             if(res) {
                 Toast.makeText(getContext(), getString(R.string.request_send_confirmation), Toast.LENGTH_SHORT).show();

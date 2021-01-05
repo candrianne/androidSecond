@@ -12,17 +12,17 @@ import com.example.androidtests.R;
 import com.example.androidtests.models.User;
 import com.example.androidtests.ui.MainActivity;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
-import com.example.androidtests.viewModels.UserVModel;
+import com.example.androidtests.viewModels.UserViewModel;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
-    private UserVModel viewModel;
+    private UserViewModel viewModel;
     @Override
     public void onCreate() {
         super.onCreate();
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())
-                .create(UserVModel.class);
+                .create(UserViewModel.class);
     }
 
     @Override

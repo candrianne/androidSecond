@@ -48,4 +48,8 @@ public class General {
         });
         builder.show();
     }
+
+    public enum state {
+        IN_PROGRESS, IN_PAUSE;
+    }
 }

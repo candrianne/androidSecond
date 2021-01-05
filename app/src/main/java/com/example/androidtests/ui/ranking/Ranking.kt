@@ -1,7 +1,6 @@
 package com.example.androidtests.ui.ranking
 
 import android.os.Bundle
-import android.text.TextUtils.indexOf
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +18,11 @@ import com.example.androidtests.R
 import com.example.androidtests.models.NetworkError
 import com.example.androidtests.models.User
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference
-import com.example.androidtests.viewModels.UserVModel
-import com.google.android.gms.common.util.ArrayUtils.removeAll
+import com.example.androidtests.viewModels.UserViewModel
 
 class Ranking : Fragment() {
     private lateinit var recyclerView : RecyclerView
-    private lateinit var viewModel: UserVModel
+    private lateinit var viewModel: UserViewModel
     private lateinit var adapter : RankingAdapter
     private lateinit var visibleLayout : ConstraintLayout
     private lateinit var errorImageView : ImageView
@@ -43,7 +41,7 @@ class Ranking : Fragment() {
         userName = view.findViewById(R.id.yourRankNameInputTextView)
         userPoints = view.findViewById(R.id.yourPointsInputTextView)
 
-        viewModel = ViewModelProvider(this)[UserVModel::class.java]
+        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
         recyclerView = view.findViewById(R.id.rankingRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = RankingAdapter()

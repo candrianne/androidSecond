@@ -4,17 +4,21 @@ package com.example.androidtests.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.androidtests.utils.General;
+
 import java.util.Date;
 
 public class UserChallenge implements Parcelable {
     private Date startdate;
     private Date enddate;
     private String name;
-    private Integer score, nbpausedays;
+    private Integer score, nbpausedays, challengeid;
+    private Enum<General.state> state;
 
-    public UserChallenge(Date startdate, Date enddate, String name, Integer score, Integer nbpausedays) {
+    public UserChallenge(Date startdate, Date enddate, Integer challengeid, String name, Integer score, Integer nbpausedays) {
         this.startdate = startdate;
         this.enddate = enddate;
+        this.challengeid = challengeid;
         this.name = name;
         this.score = score;
         this.nbpausedays = nbpausedays;
@@ -106,5 +110,21 @@ public class UserChallenge implements Parcelable {
 
     public void setNbpausedays(Integer nbpausedays) {
         this.nbpausedays = nbpausedays;
+    }
+
+    public Enum<General.state> getState() {
+        return state;
+    }
+
+    public void setAutoState() {
+        this.state = this.enddate == null ? General.state.values()[0] : General.state.values()[1];
+    }
+
+    public void setState(Enum<General.state> state) {
+        this.state = state;
+    }
+
+    public Integer getChallengeid() {
+        return challengeid;
     }
 }
