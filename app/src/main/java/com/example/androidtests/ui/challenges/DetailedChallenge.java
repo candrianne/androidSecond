@@ -1,5 +1,6 @@
 package com.example.androidtests.ui.challenges;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -27,10 +28,14 @@ import com.example.androidtests.models.UserChallenge;
 import com.example.androidtests.utils.General;
 import com.example.androidtests.viewModels.UserChallengesViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DetailedChallenge extends Fragment {
     FragmentDetailedChallengeBinding binding;
@@ -52,12 +57,13 @@ public class DetailedChallenge extends Fragment {
         if (getArguments() != null) {
             challenge = getArguments().getParcelable("challenge");
             UserChallenge[] challengesArray = (UserChallenge[]) getArguments().getParcelableArray("userChallenges");
-            userChallenges = Arrays.asList(challengesArray);
+            userChallenges = Stream.of(challengesArray).collect(Collectors.toCollection(ArrayList::new));
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDetailedChallengeBinding.inflate(inflater, container, false);
         challengeImageView = binding.challengeImageView;
@@ -72,10 +78,15 @@ public class DetailedChallenge extends Fragment {
         challengeActionButton.setText(getChallengeState(challenge));
 
         viewModel.getUpdated().observe(getViewLifecycleOwner(), updated -> {
-            int messageId = 0;
+            int messageId;
             if(updated) {
                 messageId = R.string.userChallenge_updated_message;
                 if(savedState == null || savedState == General.state.IN_PAUSE) {
+                    if (savedState == null) {
+                        userChallenge = new UserChallenge();
+                        userChallenge.setName(challenge.getName());
+                        userChallenges.add(userChallenge);
+                    }
                     userChallenge.setState(General.state.IN_PROGRESS);
                 } else {
                     userChallenge.setState(General.state.IN_PAUSE);

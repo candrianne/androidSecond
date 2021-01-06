@@ -31,6 +31,7 @@ import com.example.androidtests.utils.ContextWrapper;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.LoginViewModel;
 
+import java.util.Date;
 import java.util.Locale;
 
 import static com.example.androidtests.utils.General.triggerRebirth;
@@ -63,8 +64,13 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         setSupportActionBar(toolbar);
 
         if(SaveSharedPreference.getLoggedStatus(getApplicationContext())) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+            if(SaveSharedPreference.getLogedInUser(getApplicationContext()).getExpDate()
+                    .after(new Date())) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            } else {
+                binding.loginForm.setVisibility(View.VISIBLE);
+            }
         } else {
             binding.loginForm.setVisibility(View.VISIBLE);
         }
@@ -108,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         for(int i = 0; i < array.length; i++)
             array[i]= 2010 - i;
 
-        ArrayAdapter<Integer> adapterStringSpinner = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, array);
+        ArrayAdapter<Integer> adapterStringSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, array);
         adapterStringSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(adapterStringSpinner);
         yearSpinner.setOnItemSelectedListener(this);

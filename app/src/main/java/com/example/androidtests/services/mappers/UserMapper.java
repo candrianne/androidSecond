@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Date;
 
 
 import static java.lang.Integer.parseInt;
@@ -36,7 +37,8 @@ public class UserMapper {
                 decodedPayload.getJSONObject("value").getString("lastname"),
                 decodedPayload.getJSONObject("value").getString("email"),
                 decodedPayload.getJSONObject("value").getInt("id"),
-                decodedPayload.getJSONObject("value").getString("photo"));
+                decodedPayload.getJSONObject("value").getString("photo"),
+                new Date(decodedPayload.getLong("exp")*1000));
     }
 
     public User mapToUser(UserDTO dto)  {

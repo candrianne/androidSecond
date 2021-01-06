@@ -3,12 +3,15 @@ package com.example.androidtests.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 public class User implements Parcelable {
     String token;
     String firstName,lastName,email, photo, password, firebaseToken;
     Integer id, score, birthYear;
+    Date expDate;
 
-    public User(String token, String firstName, String lastName, String email, Integer id, String photo) {
+    public User(String token, String firstName, String lastName, String email, Integer id, String photo, Date expDate) {
         this.token = token;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -16,6 +19,7 @@ public class User implements Parcelable {
         this.id = id;
         this.score = null;
         this.photo = photo;
+        this.expDate = expDate;
     }
 
     public User(String firstName, String lastName, String email, String password, Integer birthYear) {
@@ -122,6 +126,10 @@ public class User implements Parcelable {
 
     public void setFirebaseToken(String firebaseToken) {
         this.firebaseToken = firebaseToken;
+    }
+
+    public Date getExpDate() {
+        return expDate;
     }
 
     @Override

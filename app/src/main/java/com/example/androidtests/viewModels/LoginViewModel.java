@@ -17,6 +17,7 @@ import com.example.androidtests.services.mappers.UserMapper;
 import com.example.androidtests.utils.errors.NoConnectivityException;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 
 import okhttp3.ResponseBody;
@@ -49,7 +50,7 @@ public class LoginViewModel extends AndroidViewModel {
     public void login(UserLoginRequest loginInfos) {
         loginApiService.login(loginInfos).enqueue(new Callback<UserloginDTO>() {
             @Override
-            public void onResponse(Call<UserloginDTO> call, Response<UserloginDTO> response) {
+            public void onResponse(@NotNull Call<UserloginDTO> call, @NotNull Response<UserloginDTO> response) {
                 if(response.isSuccessful()) {
                     try {
                         _user.setValue(loginMapper.mapTokenToUser(response.body(), getApplication()));
@@ -64,7 +65,7 @@ public class LoginViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFailure(Call<UserloginDTO> call, Throwable t) {
+            public void onFailure(@NotNull Call<UserloginDTO> call, @NotNull Throwable t) {
                 if (t instanceof NoConnectivityException) {
                     _error.setValue(NetworkError.NO_CONNECTION);
                 } else {
@@ -77,14 +78,13 @@ public class LoginViewModel extends AndroidViewModel {
     public void register(User newUser) {
         loginApiService.register(newUser).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
                     _registered.setValue(true);
                 }
             }
-
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 System.out.println("f");
             }
         });

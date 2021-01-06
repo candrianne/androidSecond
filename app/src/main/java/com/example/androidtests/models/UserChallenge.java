@@ -24,6 +24,9 @@ public class UserChallenge implements Parcelable {
         this.nbpausedays = nbpausedays;
     }
 
+    public UserChallenge() {
+    }
+
     protected UserChallenge(Parcel in) {
         name = in.readString();
         if (in.readByte() == 0) {
