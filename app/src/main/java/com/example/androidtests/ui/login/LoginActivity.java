@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         setSupportActionBar(toolbar);
 
         if(SaveSharedPreference.getLoggedStatus(getApplicationContext())) {
-            if(SaveSharedPreference.getLogedInUser(getApplicationContext()).getExpDate()
+             if(SaveSharedPreference.getLogedInUser(getApplicationContext()).getExpDate()
                     .after(new Date())) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);

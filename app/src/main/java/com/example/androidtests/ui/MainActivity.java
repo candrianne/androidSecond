@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         createFriendsNotificationsChannel();
         checkAndChangeFirebaseToken();
-        configCloudinary();
+        if(savedInstanceState == null)
+            configCloudinary();
     }
 
     @Override

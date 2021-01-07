@@ -1,6 +1,7 @@
 package com.example.androidtests.ui.challenges;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Paint;
 import android.os.Bundle;
 
@@ -29,6 +30,7 @@ import com.example.androidtests.models.Challenge;
 import com.example.androidtests.models.NetworkError;
 import com.example.androidtests.models.User;
 import com.example.androidtests.models.UserChallenge;
+import com.example.androidtests.ui.RotateFragment;
 import com.example.androidtests.utils.General;
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference;
 import com.example.androidtests.viewModels.ChallengesViewModel;
@@ -38,7 +40,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class Challenges extends Fragment {
+public class Challenges extends RotateFragment {
     private FragmentChallengesBinding binding;
     private RecyclerView challengesRecycler;
     private ChallengesViewModel viewModel;
@@ -46,6 +48,7 @@ public class Challenges extends Fragment {
     private List<UserChallenge> userChallenges;
     private List<Challenge> allChallenges;
     ChallengesAdapter adapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
