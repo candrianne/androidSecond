@@ -57,7 +57,7 @@
             android:layout_marginEnd="75dp"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="@string/password_title"
+            android:hint="@string/password_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
@@ -71,7 +71,7 @@
             android:layout_marginEnd="75dp"
             android:ems="10"
             android:inputType="textEmailAddress"
-            android:text="@string/email_title"
+            android:hint="@string/email_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -109,7 +109,7 @@
                 android:autofillHints="@string/firstName"
                 android:background="@drawable/border_search"
                 android:padding="4px"
-                android:text="@string/firstName" />
+                android:hint="@string/firstName" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
                 android:autofillHints="@string/lastName"
                 android:background="@drawable/border_search"
                 android:padding="4px"
-                android:text="@string/lastName" />
+                android:hint="@string/lastName" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
                 android:autofillHints="@string/email_title"
                 android:background="@drawable/border_search"
                 android:padding="4px"
-                android:text="@string/email_title" />
+                android:hint="@string/email_title" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
                 android:autofillHints="@string/password_title"
                 android:background="@drawable/border_search"
                 android:padding="4px"
-                android:text="@string/password_title" />
+                android:hint="@string/password_title" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                 android:autofillHints="@string/confirmPassword"
                 android:background="@drawable/border_search"
                 android:padding="4px"
-                android:text="@string/confirmPassword" />
+                android:hint="@string/confirmPassword" />
 
             <TextView
                 android:layout_width="wrap_content"
