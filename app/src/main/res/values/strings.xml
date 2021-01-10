@@ -80,5 +80,10 @@
     <string name="your_total_points">your points</string>
     <string name="userChallenge_updated_message">user\'s challenge created, resumed or pause</string>
     <string name="userChallenge_not_updated_message">problem with user\'s challenge update</string>
+    <string name="email_not_valid">email adress introduced is not valid</string>
+    <string name="formular_incomplete">all the fields must be completed</string>
+    <string name="passwords_do_not_match">passwords do not match</string>
+    <string name="user_created">user created !</string>
+    <string name="user_not_found">can\'t find any user with this email and password</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

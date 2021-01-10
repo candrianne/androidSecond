@@ -72,4 +72,9 @@
     <string name="pause">Pause</string>
     <string name="userChallenge_updated_message">challenge ajouté, repris ou mis en pause</string>
     <string name="userChallenge_not_updated_message">problème lors de la mise à jour du challenge</string>
+    <string name="email_not_valid">email introduit pas valide</string>
+    <string name="formular_incomplete">tout les champs doivent être complétés</string>
+    <string name="passwords_do_not_match">les mots de passe saisis ne sont pas identiques</string>
+    <string name="user_created">utilisateur créé !</string>
+    <string name="user_not_found">aucun utilisateur trouvé avec cet email et ce password</string>
 </resources>

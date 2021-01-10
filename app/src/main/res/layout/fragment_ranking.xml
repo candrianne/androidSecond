@@ -54,9 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
             android:layout_marginEnd="75dp"
-            android:background="@drawable/border_search_no_radius"
             android:text="@string/add_friend"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/yourRankInfos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -68,7 +67,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/your_rank"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/yourRankNameTextView"
@@ -77,7 +78,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/your_username"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/yourPointsTextView"
@@ -86,7 +89,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/your_total_points"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textStyle="bold|italic" />
         </LinearLayout>
 
         <LinearLayout

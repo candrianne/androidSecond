@@ -1,6 +1,7 @@
 package com.example.androidtests.viewModels;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -32,6 +33,9 @@ public class LoginViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> _registered = new MutableLiveData<>();
     private LiveData<Boolean> registered = _registered;
 
+    private MutableLiveData<Boolean> _userNotFound = new MutableLiveData<>();
+    private LiveData<Boolean> userNotFound = _userNotFound;
+
     private MutableLiveData<NetworkError> _error = new MutableLiveData<>();
     private LiveData<NetworkError> error = _error;
 
@@ -60,7 +64,11 @@ public class LoginViewModel extends AndroidViewModel {
                         e.printStackTrace();
                     }
                 } else {
-                    _error.setValue(NetworkError.REQUEST_ERROR);
+                    if(response.raw().code() == 404) {
+                       _userNotFound.setValue(true);
+                    } else {
+                        _error.setValue(NetworkError.REQUEST_ERROR);
+                    }
                 }
             }
 
@@ -85,7 +93,11 @@ public class LoginViewModel extends AndroidViewModel {
             }
             @Override
             public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                System.out.println("f");
+                if (t instanceof NoConnectivityException) {
+                    _error.setValue(NetworkError.NO_CONNECTION);
+                } else {
+                    _error.setValue(NetworkError.TECHNICAL_ERROR);
+                }
             }
         });
     }
@@ -97,4 +109,8 @@ public class LoginViewModel extends AndroidViewModel {
         return error;
     }
     public LiveData<Boolean> getRegistered() {return registered;}
+
+    public LiveData<Boolean> getUserNotFound() {
+        return userNotFound;
+    }
 }

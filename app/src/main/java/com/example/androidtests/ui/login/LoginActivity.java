@@ -81,21 +81,17 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             startActivity(intent);
         });
 
+        viewModel.getUserNotFound().observe(this, res -> {
+            Toast.makeText(this, getString(R.string.user_not_found), Toast.LENGTH_SHORT).show();
+        });
+
         viewModel.getError().observe(this, error -> {
-            // a traiter
+            Toast.makeText(this, error.getErrorMessage(), Toast.LENGTH_LONG).show();
         });
 
         viewModel.getRegistered().observe(this, registered -> {
             binding.loginForm.setVisibility(View.VISIBLE);
             binding.signUpForm.setVisibility(View.GONE);
-        });
-
-        signInButton.setOnClickListener(v -> {
-            String password = binding.editTextTextPassword.getText().toString();
-            String email = binding.editTextTextEmailAddress.getText().toString();
-            String firebaseToken = SaveSharedPreference.getFirebaseToken(getBaseContext());
-            UserLoginRequest requestBody = new UserLoginRequest(email, password);
-            sendRequest(requestBody);
         });
 
         binding.backButton.setOnClickListener(V -> {
@@ -108,7 +104,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
            binding.signUpForm.setVisibility(View.VISIBLE);
         });
 
-        binding.validateButton.setOnClickListener(this::validateForm);
+        signInButton.setOnClickListener(this::validateLoginForm);
+        binding.validateButton.setOnClickListener(this::validateRegisterForm);
 
         Integer[] array = new Integer[50];
         for(int i = 0; i < array.length; i++)
@@ -140,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         super.attachBaseContext(context);
     }
 
-    private void validateForm(View view) {
+    private void validateRegisterForm(View view) {
         firstName = binding.firstNameText.getText().toString();
         lastName = binding.lastNameText.getText().toString();
         email = binding.emailText.getText().toString();
@@ -148,9 +145,42 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         confirm = binding.confirmText.getText().toString();
 
         if(!firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty()
-                && !confirm.isEmpty() && email.matches("^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$")) {
-            User newUser = new User(firstName, lastName, email, password, birthYear);
-            viewModel.register(newUser);
+                && !confirm.isEmpty()) {
+            if(email.matches("^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$")) {
+                if(confirm.equals(password)) {
+                    User newUser = new User(firstName, lastName, email, password, birthYear);
+                    viewModel.register(newUser);
+                    Toast.makeText(getBaseContext(), getString(R.string.user_created), Toast.LENGTH_LONG)
+                            .show();
+                } else {
+                    Toast.makeText(getBaseContext(), getString(R.string.passwords_do_not_match), Toast.LENGTH_LONG)
+                            .show();
+                }
+            } else {
+                Toast.makeText(getBaseContext(), getString(R.string.email_not_valid), Toast.LENGTH_LONG)
+                        .show();
+            }
+        } else {
+            Toast.makeText(getBaseContext(), getString(R.string.formular_incomplete), Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    private void validateLoginForm(View view) {
+        String password = binding.editTextTextPassword.getText().toString();
+        String email = binding.editTextTextEmailAddress.getText().toString();
+        //String firebaseToken = SaveSharedPreference.getFirebaseToken(getBaseContext());
+        if(!password.isEmpty() && !email.isEmpty()) {
+            if(email.matches("^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$")) {
+                UserLoginRequest requestBody = new UserLoginRequest(email, password);
+                sendRequest(requestBody);
+            } else {
+                Toast.makeText(getBaseContext(), getString(R.string.email_not_valid), Toast.LENGTH_LONG)
+                        .show();
+            }
+        } else {
+            Toast.makeText(getBaseContext(), getString(R.string.formular_incomplete), Toast.LENGTH_LONG)
+                    .show();
         }
     }
 }
