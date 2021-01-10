@@ -30,7 +30,6 @@ import com.example.androidtests.viewModels.FriendshipViewModel;
 import java.util.List;
 
 public class Friends extends Fragment {
-
     private FriendshipViewModel friendViewModel;
     private FriendsFragmentBinding binding;
     private RecyclerView friendsRecycler;
@@ -54,6 +53,9 @@ public class Friends extends Fragment {
 
         friendViewModel.getFriends().observe(getViewLifecycleOwner(), this::displayFriends);
         friendViewModel.getError().observe(getViewLifecycleOwner(), this::displayErrorScreen);
+        friendViewModel.getNoFriends().observe(getViewLifecycleOwner(), res -> {
+            binding.noFriendTitle.setVisibility(View.VISIBLE);
+        });
 
         addFriendButton.setOnClickListener(this::addFriend);
 

@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         });
 
         viewModel.getError().observe(this, error -> {
+            if(error != null)
             Toast.makeText(this, error.getErrorMessage(), Toast.LENGTH_LONG).show();
         });
 

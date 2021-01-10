@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -287,31 +288,27 @@ public class ProfileFragment extends Fragment {
 
     private void loadProfilePicture(User user) {
         String url = user.getPhoto();
-        binding.profileImageView.setBackgroundResource(getUserRankingDrawableId(user.getScore()));
+        //binding.profileImageView.setBackgroundResource(getUserRankingDrawableId(user.getScore()));
 
         if(url != null) {
-            Glide.with(this).asBitmap().centerCrop().load(url).into(new BitmapImageViewTarget(binding.profileImageView){
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circular = RoundedBitmapDrawableFactory.create(getActivity().getApplicationContext().getResources(),resource);
-                    circular.setCircular(true);
-                    binding.profileImageView.setImageDrawable(circular);
-                }
-            });
+            Glide.with(this).load(url).into(binding.profileImageView);
+            binding.profileImageView.setBorderColor(
+                    Color.parseColor(getUserRankingDrawableId(user.getScore()))
+            );
         }
     }
 
-    private int getUserRankingDrawableId(int points) {
+    private String getUserRankingDrawableId(int points) {
         if(points >= 5475) {
-            return R.drawable.circle_diamond;
+            return "#b8d8e7";
         } else if(points >= 3475){
-            return R.drawable.circle_gold;
+            return "#ffd700";
         } else if(points >= 2475) {
-            return R.drawable.circle_silver;
+            return "#C0C0C0";
         } else if(points >= 1000) {
-            return R.drawable.circle_bronze;
+            return "#cd7f32";
         }
-        return R.drawable.circle_basic;
+        return "#ffffff";
     }
 
     private static class UserChallengeViewHolder extends RecyclerView.ViewHolder {

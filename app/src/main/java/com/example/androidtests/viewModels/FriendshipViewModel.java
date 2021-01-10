@@ -37,6 +37,8 @@ public class FriendshipViewModel extends AndroidViewModel {
     private LiveData<Boolean> created = _created;
     private MutableLiveData<NetworkError> _error = new MutableLiveData<>();
     private LiveData<NetworkError> error = _error;
+    private MutableLiveData<Boolean> _noFriends = new MutableLiveData<>();
+    private LiveData<Boolean> noFriends = _noFriends;
 
     private FriendsApiService friendsApiService;
     private UserApiService userApiService;
@@ -107,7 +109,12 @@ public class FriendshipViewModel extends AndroidViewModel {
                         });
                     }
                 } else {
-                    _error.setValue(NetworkError.REQUEST_ERROR);
+                    if(response.raw().code() == 404) {
+                        _error.setValue(null);
+                        _noFriends.setValue(true);
+                    } else {
+                        _error.setValue(NetworkError.REQUEST_ERROR);
+                    }
                 }
             }
 
@@ -142,12 +149,13 @@ public class FriendshipViewModel extends AndroidViewModel {
     public LiveData<List<Friend>> getFriends() {
         return friends;
     }
-
     public LiveData<NetworkError> getError() {
         return error;
     }
-
     public LiveData<Boolean> getCreated() {
         return created;
+    }
+    public LiveData<Boolean> getNoFriends() {
+        return noFriends;
     }
 }

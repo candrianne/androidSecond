@@ -25,6 +25,7 @@ import com.example.androidtests.databinding.FragmentDetailedChallengeBinding;
 import com.example.androidtests.models.Challenge;
 import com.example.androidtests.models.User;
 import com.example.androidtests.models.UserChallenge;
+import com.example.androidtests.ui.RotateFragment;
 import com.example.androidtests.utils.General;
 import com.example.androidtests.viewModels.UserChallengesViewModel;
 
@@ -37,12 +38,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DetailedChallenge extends Fragment {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class DetailedChallenge extends RotateFragment {
     FragmentDetailedChallengeBinding binding;
     private Challenge challenge;
     private UserChallenge userChallenge;
     private List<UserChallenge> userChallenges;
-    private ImageView challengeImageView;
+    private CircleImageView challengeImageView;
     private Button challengeActionButton;
     private UserChallengesViewModel viewModel;
     private General.state savedState = null;
@@ -104,17 +107,8 @@ public class DetailedChallenge extends Fragment {
     }
 
     private void loadChallengePicture(String url) {
-        challengeImageView.setBackgroundResource(R.drawable.circle_green);
-
         if(url != null) {
-            Glide.with(this).asBitmap().centerCrop().load(url).into(new BitmapImageViewTarget(challengeImageView){
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circular = RoundedBitmapDrawableFactory.create(getActivity().getApplicationContext().getResources(),resource);
-                    circular.setCircular(true);
-                    challengeImageView.setImageDrawable(circular);
-                }
-            });
+            Glide.with(this).load(url).into(challengeImageView);
         }
     }
 

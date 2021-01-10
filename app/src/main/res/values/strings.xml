@@ -85,5 +85,6 @@
     <string name="passwords_do_not_match">passwords do not match</string>
     <string name="user_created">user created !</string>
     <string name="user_not_found">can\'t find any user with this email and password</string>
+    <string name="no_friends">no friends yet</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

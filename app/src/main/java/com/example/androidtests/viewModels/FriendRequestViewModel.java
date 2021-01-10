@@ -48,15 +48,12 @@ public class FriendRequestViewModel extends AndroidViewModel {
                         if(response.isSuccessful()) {
                             _friendRequests.setValue(response.body());
                             _error.setValue(null);
-                            _noRequests.setValue(false);
                         } else {
                             if(response.raw().code() == 404) {
-                                _friendRequests.setValue(null);
                                 _noRequests.setValue(true);
                                 _error.setValue(null);
                             } else {
                                 _error.setValue(NetworkError.REQUEST_ERROR);
-                                _noRequests.setValue(false);
                             }
                         }
                     }

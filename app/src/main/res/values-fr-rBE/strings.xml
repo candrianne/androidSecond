@@ -77,4 +77,5 @@
     <string name="passwords_do_not_match">les mots de passe saisis ne sont pas identiques</string>
     <string name="user_created">utilisateur créé !</string>
     <string name="user_not_found">aucun utilisateur trouvé avec cet email et ce password</string>
+    <string name="no_friends">pas d\'ami pour l\'instant</string>
 </resources>
