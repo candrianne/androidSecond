@@ -126,6 +126,7 @@ public class Challenges extends RotateFragment {
         userChallengesViewModel.getAllUserChallenges(id);
         binding.visibleLayout.setVisibility(View.GONE);
         binding.errorImageView.setVisibility(View.GONE);
+        binding.errorTextView.setVisibility(View.GONE);
         binding.challengeProgressBar.setVisibility(View.VISIBLE);
     }
 
@@ -133,14 +134,17 @@ public class Challenges extends RotateFragment {
         binding.challengeProgressBar.setVisibility(View.GONE);
         if (error == null) {
             binding.errorImageView.setVisibility(View.GONE);
+            binding.errorTextView.setVisibility(View.GONE);
             binding.visibleLayout.setVisibility(View.VISIBLE);
             return;
         }
 
         binding.errorImageView.setVisibility(View.VISIBLE);
+        binding.errorTextView.setVisibility(View.VISIBLE);
         binding.visibleLayout.setVisibility(View.GONE);
         binding.errorImageView.setImageDrawable(getResources().getDrawable(error.getErrorDrawable(),
                 getActivity().getTheme()));
+        binding.errorTextView.setText(error.getErrorMessage());
     }
 
     private void closeSearchView(View view) {
@@ -216,6 +220,7 @@ public class Challenges extends RotateFragment {
         public void initChallenges(List<Challenge> challenges) {
             binding.challengeProgressBar.setVisibility(View.GONE);
             binding.errorImageView.setVisibility(View.GONE);
+            binding.errorTextView.setVisibility(View.GONE);
             binding.visibleLayout.setVisibility(View.VISIBLE);
             allChallenges = challenges;
             setChallenges(challenges);

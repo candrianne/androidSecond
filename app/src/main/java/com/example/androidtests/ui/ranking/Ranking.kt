@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,15 +16,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidtests.R
 import com.example.androidtests.models.NetworkError
 import com.example.androidtests.models.User
+import com.example.androidtests.ui.RotateFragment
 import com.example.androidtests.utils.sharedPreferences.SaveSharedPreference
 import com.example.androidtests.viewModels.UserViewModel
 
-class Ranking : Fragment() {
+class Ranking : RotateFragment() {
     private lateinit var recyclerView : RecyclerView
     private lateinit var viewModel: UserViewModel
     private lateinit var adapter : RankingAdapter
     private lateinit var visibleLayout : ConstraintLayout
     private lateinit var errorImageView : ImageView
+    private lateinit var errorTextView : TextView
     private lateinit var progressBar : ProgressBar
     private lateinit var userRank : TextView
     private lateinit var userName : TextView
@@ -36,6 +37,7 @@ class Ranking : Fragment() {
         val view : View = inflater.inflate(R.layout.fragment_ranking, container, false)
         visibleLayout = view.findViewById(R.id.visibleLayout)
         errorImageView = view.findViewById(R.id.errorImageView)
+        errorTextView = view.findViewById(R.id.errorTextView)
         progressBar = view.findViewById(R.id.rankingProgressBar)
         userRank = view.findViewById(R.id.yourRankInputTextView)
         userName = view.findViewById(R.id.yourRankNameInputTextView)
@@ -47,7 +49,7 @@ class Ranking : Fragment() {
         adapter = RankingAdapter()
         recyclerView.adapter = adapter
 
-        viewModel.users.observe(viewLifecycleOwner, Observer { displayRanking(it)})
+        viewModel.users.observe(viewLifecycleOwner, Observer { displayRanking(it) })
         viewModel.error.observe(viewLifecycleOwner, Observer { displayErrorScreen(it) })
 
         sendRequest()
@@ -58,12 +60,14 @@ class Ranking : Fragment() {
         viewModel.getAllUsers()
         visibleLayout.visibility = View.GONE
         errorImageView.visibility = View.GONE
+        errorTextView.visibility = View.GONE
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun displayRanking(users : List<User>) {
+    private fun displayRanking(users: List<User>) {
         visibleLayout.visibility = View.VISIBLE
         errorImageView.visibility = View.GONE
+        errorTextView.visibility = View.GONE
         progressBar.visibility = View.GONE
         val logedInUser = SaveSharedPreference.getLogedInUser(context)
         userRank.text = (users.indexOfFirst { user -> user.id == logedInUser.id}).plus(1).toString()
@@ -76,20 +80,23 @@ class Ranking : Fragment() {
         progressBar.visibility = View.GONE
         if (error == null) {
             errorImageView.visibility = View.GONE
+            errorTextView.visibility = View.GONE
             visibleLayout.visibility = View.VISIBLE
             return
         }
         errorImageView.visibility = View.VISIBLE
+        errorTextView.visibility = View.VISIBLE
         visibleLayout.visibility = View.GONE
         errorImageView.setImageDrawable(resources.getDrawable(error.errorDrawable,
                 requireActivity().theme))
+        errorTextView.text = getString(error.errorMessage)
     }
 
     private class RankingAdapter : RecyclerView.Adapter<RankingViewHolder>() {
         var usersList : MutableList<User?>? = mutableListOf()
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
             val v = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.ranking_item_layout, parent,false) as LinearLayout
+                    .inflate(R.layout.ranking_item_layout, parent, false) as LinearLayout
             return RankingViewHolder(v)
         }
 
@@ -104,7 +111,7 @@ class Ranking : Fragment() {
             holder.points.text = user?.score.toString()
         }
 
-        fun setUsers(users : List<User?>) {
+        fun setUsers(users: List<User?>) {
             usersList?.clear()
             usersList?.addAll(users)
             notifyDataSetChanged()

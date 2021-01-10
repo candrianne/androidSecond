@@ -25,14 +25,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/errorTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/errorImageView" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/visibleLayout"
         android:layout_width="0dp"
@@ -46,78 +38,30 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rankingRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="75dp"
-            android:layout_marginEnd="75dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="80dp"
             android:background="@drawable/border_search"
-            app:layout_constraintBottom_toTopOf="@+id/userRankInfos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rankingTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rankingTitle" />
-
-        <LinearLayout
-            android:id="@+id/userRankInfos"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="75dp"
-            android:layout_marginEnd="75dp"
-            android:text="@string/add_friend"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/yourRankInfos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/yourRankTextView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/your_rank"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:id="@+id/yourRankNameTextView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/your_username"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                android:id="@+id/yourPointsTextView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/your_total_points"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textStyle="bold|italic" />
-        </LinearLayout>
-
         <LinearLayout
             android:id="@+id/yourRankInfos"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="75dp"
-            android:layout_marginEnd="75dp"
-            android:layout_marginBottom="80dp"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
             android:text="@string/add_friend"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/rankingRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/rankingTitle">
 
             <TextView
                 android:id="@+id/yourRankInputTextView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -126,7 +70,7 @@
 
             <TextView
                 android:id="@+id/yourRankNameInputTextView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -135,7 +79,7 @@
 
             <TextView
                 android:id="@+id/yourPointsInputTextView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -155,6 +99,47 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/yourRankTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/your_rank"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toStartOf="@+id/yourRankInfos"
+            app:layout_constraintTop_toTopOf="@+id/yourRankInfos" />
+
+        <TextView
+            android:id="@+id/yourPointsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/your_total_points"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="@+id/yourRankTextView"
+            app:layout_constraintTop_toBottomOf="@+id/yourRankTextView" />
+
+        <TextView
+            android:id="@+id/yourRankNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/your_username"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toStartOf="@+id/yourRankInfos"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/yourPointsTextView"
+            app:layout_constraintTop_toBottomOf="@+id/yourPointsTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

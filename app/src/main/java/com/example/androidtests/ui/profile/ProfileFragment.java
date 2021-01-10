@@ -108,6 +108,7 @@ public class ProfileFragment extends Fragment {
         userChallengesViewModel.getUserChallenges().observe(getViewLifecycleOwner(), challenges -> {
             binding.challengeProgressBar.setVisibility(View.GONE);
             binding.errorImageView.setVisibility(View.GONE);
+            binding.errorTextView.setVisibility(View.GONE);
             binding.visibleLayout.setVisibility(View.VISIBLE);
             connectedUser.setScore(Profile.calculateUserScore(challenges));
             SaveSharedPreference.setLogedInUser(getContext(), connectedUser);
@@ -244,6 +245,7 @@ public class ProfileFragment extends Fragment {
         userChallengesViewModel.getAllUserChallenges(id);
         binding.visibleLayout.setVisibility(View.GONE);
         binding.errorImageView.setVisibility(View.GONE);
+        binding.errorTextView.setVisibility(View.GONE);
         binding.challengeProgressBar.setVisibility(View.VISIBLE);
     }
 
@@ -269,14 +271,17 @@ public class ProfileFragment extends Fragment {
         binding.challengeProgressBar.setVisibility(View.GONE);
         if (error == null) {
             binding.errorImageView.setVisibility(View.GONE);
+            binding.errorTextView.setVisibility(View.GONE);
             binding.visibleLayout.setVisibility(View.VISIBLE);
             return;
         }
 
         binding.errorImageView.setVisibility(View.VISIBLE);
+        binding.errorTextView.setVisibility(View.VISIBLE);
         binding.visibleLayout.setVisibility(View.GONE);
         binding.errorImageView.setImageDrawable(getResources().getDrawable(error.getErrorDrawable(),
                 getActivity().getTheme()));
+        binding.errorTextView.setText(error.getErrorMessage());
     }
 
     private int dpToPx(int dp) {
@@ -288,13 +293,15 @@ public class ProfileFragment extends Fragment {
 
     private void loadProfilePicture(User user) {
         String url = user.getPhoto();
-        //binding.profileImageView.setBackgroundResource(getUserRankingDrawableId(user.getScore()));
-
         if(url != null) {
             Glide.with(this).load(url).into(binding.profileImageView);
             binding.profileImageView.setBorderColor(
                     Color.parseColor(getUserRankingDrawableId(user.getScore()))
             );
+        } else {
+            Glide.with(this).load(
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png"
+            ).into(binding.profileImageView);
         }
     }
 

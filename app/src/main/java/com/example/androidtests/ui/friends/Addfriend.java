@@ -48,7 +48,7 @@ public class Addfriend extends Fragment {
         addFriendButton = root.findViewById(R.id.searchUserButton);
         searchIdTextView = root.findViewById(R.id.searchIdEditText);
 
-        viewModel.user.observe(getViewLifecycleOwner(), this::displayConfirmAddMessage);
+        viewModel.getUser().observe(getViewLifecycleOwner(), this::displayConfirmAddMessage);
         friendRequestsViewModel.getSent().observe(getViewLifecycleOwner(), res -> {
             if(res) {
                 Toast.makeText(getContext(), getString(R.string.request_send_confirmation), Toast.LENGTH_SHORT).show();

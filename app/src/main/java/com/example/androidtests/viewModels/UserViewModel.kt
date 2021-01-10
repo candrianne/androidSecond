@@ -23,8 +23,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
-    lateinit var user: LiveData<User>
     private var _user = MutableLiveData<User>()
+    var user: LiveData<User> = _user
     private var _users = MutableLiveData<List<User>>()
     var users : LiveData<List<User>> = _users
     private var _error = MutableLiveData<NetworkError?>()

@@ -40,7 +40,7 @@ import java.util.stream.Stream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DetailedChallenge extends RotateFragment {
+public class DetailedChallenge extends Fragment {
     FragmentDetailedChallengeBinding binding;
     private Challenge challenge;
     private UserChallenge userChallenge;
