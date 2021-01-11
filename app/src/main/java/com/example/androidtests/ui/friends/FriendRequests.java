@@ -96,10 +96,10 @@ public class FriendRequests extends Fragment {
     }
 
     private void displayRequests(List<FriendRequest> requests) {
+        adapter.setFriendRequests(requests);
         binding.visibleLayout.setVisibility(View.VISIBLE);
         binding.errorImageView.setVisibility(View.GONE);
         binding.friendRequestsProgressBar.setVisibility(View.GONE);
-        adapter.setFriendRequests(requests);
     }
 
     private void displayErrorScreen(NetworkError error) {
