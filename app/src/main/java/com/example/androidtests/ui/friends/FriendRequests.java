@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -64,6 +65,7 @@ public class FriendRequests extends Fragment {
         friendRequestViewModel.getError().observe(getViewLifecycleOwner(), this::displayErrorScreen);
         friendRequestViewModel.getDeleted().observe(getViewLifecycleOwner(), this::removeRequest);
         friendRequestViewModel.getNoRequests().observe(getViewLifecycleOwner(), res -> {
+            adapter.setFriendRequests(new ArrayList<>());
             binding.noFriendRequestsTitle.setVisibility(res ? View.VISIBLE : View.GONE);
         });
 
